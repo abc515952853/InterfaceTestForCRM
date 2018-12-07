@@ -57,6 +57,23 @@ class Pyodbc:
             customerallid.append(str(customerallinfo[i][0]))
         return customerallid
 
+    def GetCustomerSubordinateinfo(self,employeeid):
+        employeeid = "'"+employeeid+"'"
+        sql = " WITH cte AS(\
+		SELECT i=1, a.* FROM [dbo].[Department] a\
+		WHERE a.id =(SELECT DepartmentId FROM [syzb_test_crm].[dbo].[EmployeeInDepartment] where EmployeeId={0})\
+		UNION ALL\
+		SELECT i=c.i+1,d.* FROM cte c \
+		INNER JOIN [dbo].[Department] d ON c.id = d.ParentId) \
+        select h.* FROM cte e inner join [dbo].[EmployeeInDepartment] f on  e.id = f.DepartmentId\
+        inner join [dbo].[Customer] h on f.EmployeeId =h.CreatorId".format(employeeid)
+        self.cursor.execute(sql)
+        customerallinfo= self.cursor.fetchall()
+        customerallid = []
+        for i in range(len(customerallinfo)):
+            customerallid.append(str(customerallinfo[i][0]))
+        return customerallid
+
 
 
 
