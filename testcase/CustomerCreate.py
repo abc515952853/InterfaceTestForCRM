@@ -14,16 +14,6 @@ excel = ReadExcl.Xlrd()
 
 @ddt.ddt
 class TestCustomerCreate(unittest.TestCase): 
-    def setUp(self):
-        """
-        :return:
-        """
-
-    def tearDown(self):
-        """
-        :return:
-        """
-
     @ddt.data(*excel.get_xls_next(sheet_name))
     def test_CustomerCreate(self, data):
         name = str(data["name"])+str(data["case_id"])

@@ -1,0 +1,28 @@
+import unittest
+import ddt
+from common import ReadExcl,ReadDB
+import ReadConfig 
+import requests
+import json 
+
+api='api/Customer'
+case_describe = '获取我负责的客户'
+
+class CustomerMyresponsible(unittest.TestCase): 
+    def test_CustomerMyresponsible(self):
+        readconfig=ReadConfig.ReadConfig()
+        readdb = ReadDB.Pyodbc()
+
+        url = readconfig.get_url('url')+api
+        session =  readconfig.get_member('session')
+        headers = {'Content-Type': "application/json",'Authorization':session}
+        r = requests.get(url=url, headers = headers)
+        if r.status_code==200:
+            customermyresponsibleid = readdb.GetCustomerMyresponsibleinfo(readconfig.get_member('employeeid'))
+            responecustomermyresponsibleid = []
+            for i in range(len(r.json())):
+                responecustomermyresponsibleid.append(r.json()[i]['id'])
+                self.assertIn(r.json()[i]['id'].upper(),customermyresponsibleid,case_describe)
+            self.assertEqual(len(responecustomermyresponsibleid),len(customermyresponsibleid),case_describe)
+        else:
+            self.assertEqual(r.status_code,200,case_describe)   
