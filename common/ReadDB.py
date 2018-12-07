@@ -37,6 +37,16 @@ class Pyodbc:
         }
         return customerinfo
 
+    def GetCustomerAllinfo(self,employeeid):
+        employeeid = "'"+employeeid+"'"
+        sql = "SELECT * FROM [dbo].[Customer] where CreatorId={0}".format(employeeid)
+        self.cursor.execute(sql)
+        customerallinfo= self.cursor.fetchall()
+        customerallid = []
+        for i in range(len(customerallinfo)):
+            customerallid.append(str(customerallinfo[i][0]))
+        return customerallid
+
 
 
 
