@@ -51,14 +51,14 @@ class ReadConfig:
         self.cf.set("MEMBER",name,value)
         self.save()
 
-    #获取CLIENT信息
-    def get_client(self,name):
-        value = self.cf.get("CLIENT",name)
+    #获取Customer信息
+    def get_customer(self,name):
+        value = self.cf.get("Customer",name)
         return value
 
-    #重设CLIENT信息
-    def set_client(self,name,value):
-        self.cf.set("CLIENT",name,value)
+    #重设Customer信息
+    def set_customer(self,name,value):
+        self.cf.set("Customer",name,value)
         self.save()
 
     #写入ini文件
@@ -69,6 +69,7 @@ class ReadConfig:
     def get_email(self,name):
         value = self.cf.get("EMAIL",name)
         return value
+    
            
 
 # if __name__ == "__main__":

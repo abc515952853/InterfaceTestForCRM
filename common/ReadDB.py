@@ -39,7 +39,7 @@ class Pyodbc:
 
     def GetCustomerMyresponsibleinfo(self,employeeid):
         employeeid = "'"+employeeid+"'"
-        sql = "SELECT * FROM [dbo].[Customer] where [CreatorId]={0}".format(employeeid)
+        sql = "SELECT * FROM [dbo].[Customer] WHERE [CreatorId]={0}".format(employeeid)
         self.cursor.execute(sql)
         customerallinfo= self.cursor.fetchall()
         customerallid = []
@@ -49,7 +49,7 @@ class Pyodbc:
     
     def GetCustomerAccessorialinfo(self,employeeid):
         employeeid = "'"+employeeid+"'"
-        sql = "SELECT * FROM [dbo].[Customer] where [AssisterId]={0}".format(employeeid)
+        sql = "SELECT * FROM [dbo].[Customer] WHERE [AssisterId]={0}".format(employeeid)
         self.cursor.execute(sql)
         customerallinfo= self.cursor.fetchall()
         customerallid = []
@@ -61,7 +61,7 @@ class Pyodbc:
         employeeid = "'"+employeeid+"'"
         sql = " WITH cte AS(\
 		SELECT i=1, a.* FROM [dbo].[Department] a\
-		WHERE a.id =(SELECT DepartmentId FROM [syzb_test_crm].[dbo].[EmployeeInDepartment] where EmployeeId={0})\
+		WHERE a.id in(SELECT DepartmentId FROM [syzb_test_crm].[dbo].[EmployeeInDepartment] WHERE EmployeeId={0} and IsLeader=1)\
 		UNION ALL\
 		SELECT i=c.i+1,d.* FROM cte c \
 		INNER JOIN [dbo].[Department] d ON c.id = d.ParentId) \
@@ -73,6 +73,26 @@ class Pyodbc:
         for i in range(len(customerallinfo)):
             customerallid.append(str(customerallinfo[i][0]))
         return customerallid
+
+    def GetCustomerDetailsinfo(self,correlationid):
+        correlationid = "'"+correlationid+"'"
+        sql = "SELECT TOP 1000 [CorrelationId],[Name],[ShortName],[City],[State],[CustomerProspectId],[CustomerTypeId],[CreatorId],[Synopsis],[CustomerKind] \
+        FROM [syzb_test_crm].[dbo].[Customer] WHERE [CorrelationId]={0}".format(correlationid)
+        self.cursor.execute(sql)
+        customerone= self.cursor.fetchone()
+        customeroneinfo ={
+            'correlationId':str(customerone[0]),
+            'name':customerone[1],
+            'shortName':customerone[2],
+            'city':str(customerone[3]),
+            'state':str(customerone[4]),
+            'customerProspectId':str(customerone[5]),
+            'customerTypeId':str(customerone[6]),
+            'creatorId':str(customerone[7]),
+            'synopsis':str(customerone[8]),
+            'customerKind':str(customerone[9])
+        }
+        return customeroneinfo
 
 
 

@@ -24,5 +24,6 @@ class CustomerMyresponsible(unittest.TestCase):
                 responecustomermyresponsibleid.append(r.json()[i]['id'])
                 self.assertIn(r.json()[i]['id'].upper(),customermyresponsibleid,case_describe)
             self.assertEqual(len(responecustomermyresponsibleid),len(customermyresponsibleid),case_describe)
+            readconfig.set_customer('customerresponsibleid',r.json()[0]['id'])
         else:
             self.assertEqual(r.status_code,200,case_describe)   

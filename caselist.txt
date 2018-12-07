@@ -2,3 +2,4 @@
 CustomerMyresponsible
 CustomerAccessorial
 CustomerSubordinate
+CustomerDetails

@@ -57,7 +57,7 @@ class TestCustomerCreate(unittest.TestCase):
         excel.set_cell(sheet_name,int(data["case_id"]),excel.get_sheet_colname(sheet_name)["result_msg"],r.text,excel.set_color())
         excel.save()
         
-        # #存储数据到本地config数据文件
+        #数据对比
         if r.status_code==200 or r.status_code ==204:
             customerinfo = readdb.GetCustomer(name)
             self.assertEqual(customerinfo['name'],name,case_describe)
