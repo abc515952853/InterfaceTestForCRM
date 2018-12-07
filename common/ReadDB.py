@@ -95,6 +95,27 @@ class Pyodbc:
         return customeroneinfo
 
 
+    def  CustomerPropertyTypes(self):
+        sql = "SELECT [Id],[Title],[Description] FROM [dbo].[CustomerType]"
+        self.cursor.execute(sql)
+        PropertyTypesinfo= self.cursor.fetchall()
+        PropertyTypesid = []
+        for i in range(len(PropertyTypesinfo)):
+            PropertyTypesid.append(PropertyTypesinfo[i])
+        return PropertyTypesid
+    
+    def CustomerPropertyProspect(self):
+        sql = "SELECT [Id],[Title],[Description] FROM [dbo].[CustomerProspect]"
+        self.cursor.execute(sql)
+        PropertyProspectinfo= self.cursor.fetchall()
+        PropertyProspectid = []
+        for i in range(len(PropertyProspectinfo)):
+            PropertyProspectid.append(PropertyProspectinfo[i])
+        return PropertyProspectid
+    
+    def CustomerPropertyLabel(self):
+        print('CustomerPropertyLabel')
+
 
 
         

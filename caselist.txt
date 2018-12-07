@@ -1,5 +1,7 @@
 #CustomerCreate
-CustomerMyresponsible
-CustomerAccessorial
-CustomerSubordinate
-CustomerDetails
+#CustomerMyresponsible
+#CustomerAccessorial
+#CustomerSubordinate
+#CustomerDetails
+#CustomerProperty
+CustomerUpdate
