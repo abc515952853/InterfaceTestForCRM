@@ -49,7 +49,7 @@ class CustomerProperty(unittest.TestCase):
         else:
             self.assertEqual(r.status_code,200,case_describe)
 
-    def test_CustomerPropertyLabel(self):
+    def test_CustomerPropertyLabels(self):
         readconfig=ReadConfig.ReadConfig()
         readdb = ReadDB.Pyodbc()
 
@@ -59,3 +59,12 @@ class CustomerProperty(unittest.TestCase):
         r = requests.get(url=url, headers = headers)
         if r.status_code==200:
             customerpropertylabel = readdb.CustomerPropertyLabels()
+            for i in range(len(customerpropertylabel)):
+                for ii in range(len(r.json())):
+                    if customerpropertylabel[i][0] == r.json()[ii]['id']:
+                        self.assertEqual(customerpropertylabel[i][1],r.json()[ii]['groupName'])
+                        self.assertEqual(customerpropertylabel[i][2],r.json()[ii]['backgroundColor'])
+                        self.assertEqual(customerpropertylabel[i][3],r.json()[ii]['foregroundColor'])
+                        for iii in range(len(r.json()[ii]['labels'])):
+                            if customerpropertylabel[i][4] ==r.json()[ii]['labels'][iii]['id']:
+                                self.assertEqual(customerpropertylabel[i][5],r.json()[ii]['labels'][iii]['name'])
