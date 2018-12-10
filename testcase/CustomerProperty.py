@@ -7,7 +7,7 @@ import json
 
 apitype='api/Customer/Types'
 apiprospects='api/Customer/Prospects'
-apilabel='api/Label'
+apilabels='api/Customer/labels'
 case_describe = '获取客户属性'
 
 class CustomerProperty(unittest.TestCase): 
@@ -48,3 +48,14 @@ class CustomerProperty(unittest.TestCase):
                         self.assertEqual(r.json()[i]['description'],customerpropertyprospects[ii][2],case_describe)
         else:
             self.assertEqual(r.status_code,200,case_describe)
+
+    def test_CustomerPropertyLabel(self):
+        readconfig=ReadConfig.ReadConfig()
+        readdb = ReadDB.Pyodbc()
+
+        url = readconfig.get_url('url')+apilabels
+        session =  readconfig.get_member('session')
+        headers = {'Content-Type': "application/json",'Authorization':session}
+        r = requests.get(url=url, headers = headers)
+        if r.status_code==200:
+            customerpropertylabel = readdb.CustomerPropertyLabels()

@@ -113,9 +113,11 @@ class Pyodbc:
             PropertyProspectid.append(PropertyProspectinfo[i])
         return PropertyProspectid
     
-    def CustomerPropertyLabel(self):
-        print('CustomerPropertyLabel')
-
+    def CustomerPropertyLabels(self):
+        sql = "SELECT a.id,a.GroupName,a.BackgroundColor,a.ForegroundColor,b.Id,b.name FROM [dbo].[LabelGroup] a inner join [dbo].[Label] b on a.id = b.[LabelGroupId]"
+        self.cursor.execute(sql)
+        PropertyLabelsinfo= self.cursor.fetchall()
+        return PropertyLabelsinfo
 
 
         

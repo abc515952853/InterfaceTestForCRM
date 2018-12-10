@@ -3,6 +3,6 @@
 #CustomerAccessorial
 #CustomerSubordinate
 #CustomerDetails
-#CustomerProperty
+CustomerProperty
 #CustomerUpdateName
-CustomerUpdateShortName
+#CustomerUpdateShortName
