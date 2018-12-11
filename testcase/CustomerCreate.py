@@ -50,7 +50,6 @@ class TestCustomerCreate(unittest.TestCase):
             "customerTypeId":customerTypeId,
             "synopsis":synopsis,
             "customerKind":customerKind,
-            "labelIds":label
             }
         r = requests.post(url=url,data = json.dumps(payload),headers = headers)
 
