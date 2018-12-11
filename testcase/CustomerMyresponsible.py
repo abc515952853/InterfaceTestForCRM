@@ -5,7 +5,7 @@ import ReadConfig
 import requests
 import json 
 
-api='api/Customer'
+api='api/Customer?key=&departmentId=&pageIndex=1&pageSize=1000'
 case_describe = '获取我负责的客户'
 
 class CustomerMyresponsible(unittest.TestCase): 
@@ -23,7 +23,7 @@ class CustomerMyresponsible(unittest.TestCase):
             for i in range(len(r.json())):
                 responecustomermyresponsibleid.append(r.json()[i]['id'])
                 self.assertIn(r.json()[i]['id'].upper(),customermyresponsibleid,case_describe)
-            self.assertEqual(len(responecustomermyresponsibleid),len(customermyresponsibleid),case_describe)
             readconfig.set_customer('customerresponsibleid',r.json()[0]['id'])
+            self.assertEqual(len(responecustomermyresponsibleid),len(customermyresponsibleid),case_describe)
         else:
             self.assertEqual(r.status_code,200,case_describe)   
