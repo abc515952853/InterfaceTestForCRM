@@ -1,8 +1,10 @@
-#CustomerCreate
+CustomerCreate
 #CustomerMyresponsible
 #CustomerAccessorial
 #CustomerSubordinate
 #CustomerDetails
-CustomerProperty
+#CustomerProperty
 #CustomerUpdateName
 #CustomerUpdateShortName
+#CustomerUpdateArea
+#CustomerUpdateType

@@ -24,6 +24,7 @@ class TestCustomerCreate(unittest.TestCase):
         customerProspectId = int(data["customerProspectId"])
         customerTypeId = int(data["customerTypeId"])
         customerKind = int(data["customerTypeId"])
+        label = str(data["label"]).split(",")
         case_describe = str(data["case_describe"])
 
         excel = ReadExcl.Xlrd()
@@ -48,7 +49,8 @@ class TestCustomerCreate(unittest.TestCase):
             "customerProspectId": customerProspectId,
             "customerTypeId":customerTypeId,
             "synopsis":synopsis,
-            "customerKind":customerKind
+            "customerKind":customerKind,
+            "labelIds":label
             }
         r = requests.post(url=url,data = json.dumps(payload),headers = headers)
 

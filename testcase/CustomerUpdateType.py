@@ -6,16 +6,16 @@ import requests
 import json 
 import uuid
 
-api='api/Customer/{0}/name'
-sheet_name = "CustomerUpdateName"
+api='api/Customer/{0}/Type'
+sheet_name = "CustomerUpdateType"
 
 excel = ReadExcl.Xlrd()
 
 @ddt.ddt
-class CustomerUpdateName(unittest.TestCase): 
+class CustomerUpdateType(unittest.TestCase): 
     @ddt.data(*excel.get_xls_next(sheet_name))
-    def test_CustomerUpdateName(self,data):
-        name = str(data["name"])
+    def test_CustomerUpdateType(self,data):
+        Type = int(data["type"])
         customertab = str(data["customertab"])
         case_describe = str(data["case_describe"])
 
@@ -28,7 +28,7 @@ class CustomerUpdateName(unittest.TestCase):
         requestid = str(uuid.uuid1())
         headers = {'Content-Type': "application/json",'Authorization':session,"x-requestid":requestid}
         payload ={
-            "name":name
+            "customerTypeId":Type
         }
         r = requests.post(url=url,data = json.dumps(payload),headers = headers)
 
@@ -38,8 +38,8 @@ class CustomerUpdateName(unittest.TestCase):
         excel.save()
         
         #数据对比
-        if r.status_code==202:
+        if r.status_code==200:
             customerdetails = readdb.GetCustomerDetailsinfo(correlationid)
-            self.assertEqual(customerdetails['name'],name,case_describe)
+            self.assertEqual(int(customerdetails['customerTypeId']),Type,case_describe)
         else:
-            self.assertEqual(r.status_code,202,case_describe)   
+            self.assertEqual(r.status_code,200,case_describe)   

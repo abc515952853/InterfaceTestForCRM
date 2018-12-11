@@ -38,6 +38,7 @@ class Pyodbc:
         return customerinfo
 
     def GetCustomerMyresponsibleinfo(self,employeeid):
+        time.sleep(1)
         employeeid = "'"+employeeid+"'"
         sql = "SELECT * FROM [dbo].[Customer] WHERE [CreatorId]={0}".format(employeeid)
         self.cursor.execute(sql)
@@ -48,6 +49,7 @@ class Pyodbc:
         return customerallid
     
     def GetCustomerAccessorialinfo(self,employeeid):
+        time.sleep(1)
         employeeid = "'"+employeeid+"'"
         sql = "SELECT * FROM [dbo].[Customer] WHERE [AssisterId]={0}".format(employeeid)
         self.cursor.execute(sql)
@@ -58,6 +60,7 @@ class Pyodbc:
         return customerallid
 
     def GetCustomerSubordinateinfo(self,employeeid):
+        time.sleep(1)
         employeeid = "'"+employeeid+"'"
         sql = " WITH cte AS(\
 		SELECT i=1, a.* FROM [dbo].[Department] a\
@@ -75,8 +78,9 @@ class Pyodbc:
         return customerallid
 
     def GetCustomerDetailsinfo(self,correlationid):
+        time.sleep(1)
         correlationid = "'"+correlationid+"'"
-        sql = "SELECT TOP 1000 [CorrelationId],[Name],[ShortName],[City],[State],[CustomerProspectId],[CustomerTypeId],[CreatorId],[Synopsis],[CustomerKind] \
+        sql = "SELECT [CorrelationId],[Name],[ShortName],[City],[State],[CustomerProspectId],[CustomerTypeId],[CreatorId],[Synopsis],[CustomerKind] \
         FROM [syzb_test_crm].[dbo].[Customer] WHERE [CorrelationId]={0}".format(correlationid)
         self.cursor.execute(sql)
         customerone= self.cursor.fetchone()
@@ -96,6 +100,7 @@ class Pyodbc:
 
 
     def  CustomerPropertyTypes(self):
+        time.sleep(1)
         sql = "SELECT [Id],[Title],[Description] FROM [dbo].[CustomerType]"
         self.cursor.execute(sql)
         PropertyTypesinfo= self.cursor.fetchall()
@@ -105,6 +110,7 @@ class Pyodbc:
         return PropertyTypesid
     
     def CustomerPropertyProspect(self):
+        time.sleep(1)
         sql = "SELECT [Id],[Title],[Description] FROM [dbo].[CustomerProspect]"
         self.cursor.execute(sql)
         PropertyProspectinfo= self.cursor.fetchall()
@@ -114,6 +120,7 @@ class Pyodbc:
         return PropertyProspectid
     
     def CustomerPropertyLabels(self):
+        time.sleep(1)
         sql = "SELECT a.id,a.GroupName,a.BackgroundColor,a.ForegroundColor,b.Id,b.name FROM [dbo].[LabelGroup] a inner join [dbo].[Label] b on a.id = b.[LabelGroupId]"
         self.cursor.execute(sql)
         PropertyLabelsinfo= self.cursor.fetchall()

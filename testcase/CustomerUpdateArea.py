@@ -6,16 +6,17 @@ import requests
 import json 
 import uuid
 
-api='api/Customer/{0}/name'
-sheet_name = "CustomerUpdateName"
+api='api/Customer/{0}/area'
+sheet_name = "CustomerUpdateArea"
 
 excel = ReadExcl.Xlrd()
 
 @ddt.ddt
-class CustomerUpdateName(unittest.TestCase): 
+class CustomerUpdateArea(unittest.TestCase): 
     @ddt.data(*excel.get_xls_next(sheet_name))
-    def test_CustomerUpdateName(self,data):
-        name = str(data["name"])
+    def test_CustomerUpdateArea(self,data):
+        city = str(data["city"])
+        state = str(data["state"])
         customertab = str(data["customertab"])
         case_describe = str(data["case_describe"])
 
@@ -28,7 +29,7 @@ class CustomerUpdateName(unittest.TestCase):
         requestid = str(uuid.uuid1())
         headers = {'Content-Type': "application/json",'Authorization':session,"x-requestid":requestid}
         payload ={
-            "name":name
+            "area": {"state": state, "city": city}
         }
         r = requests.post(url=url,data = json.dumps(payload),headers = headers)
 
@@ -38,8 +39,9 @@ class CustomerUpdateName(unittest.TestCase):
         excel.save()
         
         #数据对比
-        if r.status_code==202:
+        if r.status_code==200:
             customerdetails = readdb.GetCustomerDetailsinfo(correlationid)
-            self.assertEqual(customerdetails['name'],name,case_describe)
+            self.assertEqual(customerdetails['city'],city,case_describe)
+            self.assertEqual(customerdetails['state'],state,case_describe)
         else:
-            self.assertEqual(r.status_code,202,case_describe)   
+            self.assertEqual(r.status_code,200,case_describe)   
