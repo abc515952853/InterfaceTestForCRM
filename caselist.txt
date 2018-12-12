@@ -12,3 +12,4 @@
 #CustomerUpdateSynopsis
 #CustomerUpdateLabel
 #CustomerDetails
+CustomerUpdateAssister

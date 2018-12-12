@@ -80,7 +80,7 @@ class Pyodbc:
     def GetCustomerDetailsinfo(self,correlationid):
         time.sleep(1)
         correlationid = "'"+correlationid+"'"
-        sql = "SELECT [CorrelationId],[Name],[ShortName],[City],[State],[CustomerProspectId],[CustomerTypeId],[CreatorId],[Synopsis],[CustomerKind] \
+        sql = "SELECT [CorrelationId],[Name],[ShortName],[City],[State],[CustomerProspectId],[CustomerTypeId],[CreatorId],[Synopsis],[CustomerKind],[assisterId] \
         FROM [syzb_test_crm].[dbo].[Customer] WHERE [CorrelationId]={0}".format(correlationid)
         self.cursor.execute(sql)
         customerone= self.cursor.fetchone()
@@ -94,7 +94,8 @@ class Pyodbc:
             'customerTypeId':str(customerone[6]),
             'creatorId':str(customerone[7]),
             'synopsis':str(customerone[8]),
-            'customerKind':str(customerone[9])
+            'customerKind':str(customerone[9]),
+            'assisterId':str(customerone[10])
         }
         return customeroneinfo
 
