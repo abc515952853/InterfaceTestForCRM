@@ -7,5 +7,6 @@
 #CustomerUpdateShortName
 #CustomerUpdateArea
 #CustomerUpdateType
-CustomerUpdateProspect
+#CustomerUpdateProspect
 #CustomerDetails
+CustomerAll

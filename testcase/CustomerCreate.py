@@ -68,5 +68,4 @@ class TestCustomerCreate(unittest.TestCase):
             self.assertEqual(customerinfo['customerProspectId'],str(customerProspectId),case_describe)
             self.assertEqual(customerinfo['customerTypeId'],str(customerTypeId),case_describe)
             self.assertEqual(customerinfo['customerKind'],str(customerKind),case_describe)
-            readconfig.set_member('employeeid',customerinfo['creatorId'])
         self.assertEqual(r.status_code,data['expected_code'],data["case_describe"])

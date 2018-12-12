@@ -126,6 +126,19 @@ class Pyodbc:
         PropertyLabelsinfo= self.cursor.fetchall()
         return PropertyLabelsinfo
 
+    def GetCustomerInDepartmentinfo(self,key,departmentId):
+        if departmentId == '1' or departmentId=='':
+            sql = "SELECT CorrelationId FROM [syzb_test_crm].[dbo].[Customer] where  Name like '%{}%'".format(key)
+        else: 
+            sql = "SELECT CorrelationId FROM [syzb_test_crm].[dbo].[Customer] where CreatorId in \
+            (SELECT EmployeeId FROM [dbo].[EmployeeInDepartment] where DepartmentId={}) and Name like '%{}%'".format(departmentId,key)
+        self.cursor.execute(sql)
+        CustomerInDepartmentinfo= self.cursor.fetchall()
+        CustomerInDepartmentid = []
+        for i in range(len(CustomerInDepartmentinfo)):
+            CustomerInDepartmentid.append(CustomerInDepartmentinfo[i][0])
+        return CustomerInDepartmentid
+
 
         
         
