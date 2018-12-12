@@ -140,5 +140,17 @@ class Pyodbc:
         return CustomerInDepartmentid
 
 
+    def GetCustomerLabelsinfo(self,correlationid):
+        time.sleep(1)
+        correlationid = "'"+correlationid+"'"
+        sql = "SELECT LabelId FROM [syzb_test_crm].[dbo].[CustomerLabel] where CustomerId={0}".format(correlationid)
+        self.cursor.execute(sql)
+        labelsinfo= self.cursor.fetchall()
+        Labelsid = []
+        for i in range(len(labelsinfo)):
+            Labelsid.append(labelsinfo[i][0])
+        return Labelsid
+
+
         
         
