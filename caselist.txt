@@ -9,4 +9,5 @@
 #CustomerUpdateType
 #CustomerUpdateProspect
 #CustomerDetails
-CustomerAll
+#CustomerAll
+CustomerUpdateSynopsis

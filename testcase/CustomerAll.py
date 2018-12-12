@@ -6,7 +6,7 @@ import requests
 import json 
 import uuid
 
-api='api/Customer/all?key={0}&departmentId={1}&pageIndex=1&pageSize=70'
+api='api/Customer/all?key={0}&departmentId={1}&pageIndex=1&pageSize=1000'
 sheet_name = "CustomerAll"
 
 excel = ReadExcl.Xlrd()
