@@ -68,3 +68,5 @@ class CustomerProperty(unittest.TestCase):
                         for iii in range(len(r.json()[ii]['labels'])):
                             if customerpropertylabel[i][4] ==r.json()[ii]['labels'][iii]['id']:
                                 self.assertEqual(customerpropertylabel[i][5],r.json()[ii]['labels'][iii]['name'])
+        else:
+            self.assertEqual(r.status_code,200,case_describe)

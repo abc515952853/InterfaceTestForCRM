@@ -20,10 +20,12 @@ class CustomerSubordinate(unittest.TestCase):
         if r.status_code==200:
             customersubordinateid = readdb.GetCustomerSubordinateinfo(readconfig.get_member('employeeid'))
             responecustomersubordinateid = []
-            for i in range(len(r.json())):
-                responecustomersubordinateid.append(r.json()[i]['id'])
-                self.assertIn(r.json()[i]['id'].upper(),customersubordinateid,case_describe)
-            readconfig.set_customer('customersubordinateid',r.json()[0]['id'])
+            for i in range(len(r.json()['list'])):
+                responecustomersubordinateid.append(r.json()['list'][i]['id'])
+                self.assertIn(r.json()['list'][i]['id'].upper(),customersubordinateid,case_describe)
+                if r.json()['list'][i]['id'] != readconfig.get_customer("customerresponsibleid"):
+                    readconfig.set_customer('customersubordinateid',r.json()['list'][i]['id'])
             self.assertEqual(len(responecustomersubordinateid),len(customersubordinateid),case_describe)
+            self.assertEqual(r.json()['count'],len(customersubordinateid),case_describe)
         else:
             self.assertEqual(r.status_code,200,case_describe)   

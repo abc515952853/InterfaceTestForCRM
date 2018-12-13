@@ -20,10 +20,11 @@ class CustomerAccessorial(unittest.TestCase):
         if r.status_code==200:
             customeraccessorialid = readdb.GetCustomerAccessorialinfo(readconfig.get_member('employeeid'))
             responecustomeraccessorialid = []
-            for i in range(len(r.json())):
-                responecustomeraccessorialid.append(r.json()[i]['id'])
-                self.assertIn(r.json()[i]['id'].upper(),customeraccessorialid,case_describe)
-            readconfig.set_customer('customeraccessorialid',r.json()[0]['id'])
+            for i in range(len(r.json()['list'])):
+                responecustomeraccessorialid.append(r.json()['list'][i]['id'])
+                self.assertIn(r.json()['list'][i]['id'].upper(),customeraccessorialid,case_describe)
+            readconfig.set_customer('customeraccessorialid',r.json()['list'][0]['id'])
             self.assertEqual(len(responecustomeraccessorialid),len(customeraccessorialid),case_describe)
+            self.assertEqual(r.json()['count'],len(customeraccessorialid),case_describe)
         else:
             self.assertEqual(r.status_code,200,case_describe)   

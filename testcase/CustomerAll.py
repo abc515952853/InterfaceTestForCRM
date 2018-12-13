@@ -29,9 +29,10 @@ class CustomerAll(unittest.TestCase):
         if r.status_code==200:
             customerindepartmentid = readdb.GetCustomerInDepartmentinfo(key,departmentId)
             responecustomerindepartmentid = []
-            for i in range(len(r.json())):
-                responecustomerindepartmentid.append(r.json()[i]['id'])
-                self.assertIn(r.json()[i]['id'].upper(),customerindepartmentid,case_describe)
+            for i in range(len(r.json()['list'])):
+                responecustomerindepartmentid.append(r.json()['list'][i]['id'])
+                self.assertIn(r.json()['list'][i]['id'].upper(),customerindepartmentid,case_describe)
             self.assertEqual(len(responecustomerindepartmentid),len(customerindepartmentid),case_describe)
+            self.assertEqual(r.json()['count'],len(customerindepartmentid),case_describe)
         else:
             self.assertEqual(r.status_code,200,case_describe)   

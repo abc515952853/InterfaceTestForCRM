@@ -24,7 +24,7 @@ class TestCustomerCreate(unittest.TestCase):
         customerProspectId = int(data["customerProspectId"])
         customerTypeId = int(data["customerTypeId"])
         customerKind = int(data["customerTypeId"])
-        label = str(data["label"]).split(",")
+        labels = list(map(int,str(data["labels"]).split(',')))
         case_describe = str(data["case_describe"])
 
         excel = ReadExcl.Xlrd()
@@ -50,6 +50,7 @@ class TestCustomerCreate(unittest.TestCase):
             "customerTypeId":customerTypeId,
             "synopsis":synopsis,
             "customerKind":customerKind,
+            "labelIds":labels
             }
         r = requests.post(url=url,data = json.dumps(payload),headers = headers)
 
@@ -61,6 +62,7 @@ class TestCustomerCreate(unittest.TestCase):
         #数据对比
         if r.status_code==200 or r.status_code ==204:
             customerinfo = readdb.GetCustomer(name)
+            customerlabelsid = readdb.GetCustomerLabelsinfo(customerinfo['correlationId'])
             self.assertEqual(customerinfo['name'],name,case_describe)
             self.assertEqual(customerinfo['shortName'],shortName,case_describe)
             self.assertEqual(customerinfo['city'],city,case_describe)
@@ -68,4 +70,9 @@ class TestCustomerCreate(unittest.TestCase):
             self.assertEqual(customerinfo['customerProspectId'],str(customerProspectId),case_describe)
             self.assertEqual(customerinfo['customerTypeId'],str(customerTypeId),case_describe)
             self.assertEqual(customerinfo['customerKind'],str(customerKind),case_describe)
-        self.assertEqual(r.status_code,data['expected_code'],data["case_describe"])
+            for i in range(len(customerlabelsid)):
+                self.assertIn(customerlabelsid[i],labels,case_describe)
+                self.assertEqual(len(customerlabelsid),len(labels),case_describe)
+        self.assertEqual(r.status_code,data['expected_code'],case_describe)
+            
+
