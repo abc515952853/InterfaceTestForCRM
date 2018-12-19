@@ -6,29 +6,29 @@ import requests
 import json 
 import uuid
 
-api='api/Contact/{0}/Wechat'
-sheet_name = "ContactUpdateWechat"
+api='api/Contact/{0}/Labels'
+sheet_name = "ContactUpdateLabels"
 
 excel = ReadExcl.Xlrd()
 
 @ddt.ddt
-class ContactUpdateWechat(unittest.TestCase): 
+class ContactUpdateLabels(unittest.TestCase): 
     @ddt.data(*excel.get_xls_next(sheet_name))
-    def test_ContactUpdateWechat(self,data):
-        wechat = str(data["wechat"])
+    def test_ContactUpdateLabels(self,data):
+        labels = list(map(int,str(data["labels"]).split(',')))
         case_describe = str(data["case_describe"])
         expected_code = int(data["expected_code"])
 
         readconfig=ReadConfig.ReadConfig()
         readdb = ReadDB.Pyodbc()
 
-        contactid = readconfig.get_contact('contact1')
+        contactid = readconfig.get_contact('contact'+str(data["case_id"]))
         url = readconfig.get_url('url')+api.format(contactid)
         session =  readconfig.get_member('session')
         requestid = str(uuid.uuid1())
         headers = {'Content-Type': "application/json",'Authorization':session,"x-requestid":requestid}
         payload ={
-            "wechat":wechat
+            "labels":labels
         }
         r = requests.post(url=url,data = json.dumps(payload),headers = headers)
 
@@ -40,6 +40,9 @@ class ContactUpdateWechat(unittest.TestCase):
         #数据对比
         if r.status_code == expected_code:
             contactdetails = readdb.GetContactDetailsinfo(contactid)
-            self.assertEqual(contactdetails['wechat'],wechat,case_describe)
+            print(contactdetails['labels'])
+            for i in range(len(contactdetails['labels'])):
+                self.assertIn(contactdetails['labels'][i],labels,case_describe)
+            self.assertEqual(len(contactdetails['labels']),len(labels),case_describe)
         else:
             self.assertEqual(r.status_code,expected_code,case_describe)   

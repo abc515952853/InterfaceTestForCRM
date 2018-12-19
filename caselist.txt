@@ -20,3 +20,4 @@ ContactUpdateName
 ContactUpdateBirthday
 ContactUpdateEmail
 ContactUpdateWechat
+ContactUpdateLabels
