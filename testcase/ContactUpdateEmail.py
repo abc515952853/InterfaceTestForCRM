@@ -39,7 +39,7 @@ class ContactUpdateEmail(unittest.TestCase):
         
         #数据对比
         if r.status_code == expected_code:
-            customerdetails = readdb.GetContactDetailsinfo(contactid)
-            self.assertEqual(customerdetails['email'],email,case_describe)
+            contactdetails = readdb.GetContactDetailsinfo(contactid)
+            self.assertEqual(contactdetails['email'],email,case_describe)
         else:
             self.assertEqual(r.status_code,expected_code,case_describe)   

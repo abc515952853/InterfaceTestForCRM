@@ -14,10 +14,11 @@
 #CustomerUpdateAssister
 #CustomerDetails
 #ProjectCreate
-#ContactProperty
+ContactProperty
 #ContactCreate
-ContactUpdateName
-ContactUpdateBirthday
-ContactUpdateEmail
-ContactUpdateWechat
-ContactUpdateLabels
+#ContactUpdateName
+#ContactUpdateBirthday
+#ContactUpdateEmail
+#ContactUpdateWechat
+#ContactUpdateLabels
+#ContactDetails

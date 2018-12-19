@@ -40,7 +40,6 @@ class ContactUpdateLabels(unittest.TestCase):
         #数据对比
         if r.status_code == expected_code:
             contactdetails = readdb.GetContactDetailsinfo(contactid)
-            print(contactdetails['labels'])
             for i in range(len(contactdetails['labels'])):
                 self.assertIn(contactdetails['labels'][i],labels,case_describe)
             self.assertEqual(len(contactdetails['labels']),len(labels),case_describe)

@@ -158,7 +158,7 @@ class Pyodbc:
 
 
     def ContactPropertyLabel(self,Module):
-        sql = "SELECT [Id],[GroupName],[DepartmentId],[FunctionModule],[IsMultiple] FROM [dbo].[LabelGroup] WHERE [FunctionModule]={0}".format(Module)
+        sql = "SELECT [Id],[GroupName],[DepartmentId],[FunctionModule],[IsMultiple],[BackgroundColor],[ForegroundColor] FROM [dbo].[LabelGroup] WHERE [FunctionModule]={0}".format(Module)
         self.cursor.execute(sql)
         labelgroupsinfo= self.cursor.fetchall()
         labelgroups = []
@@ -172,7 +172,7 @@ class Pyodbc:
             for ii in range(len(labelsinfo)):
                 Label ={"id":labelsinfo[ii][0],"name":labelsinfo[ii][1]}
                 Labels.append(Label)         
-            Labelgroup = {"id":labelgroupsinfo[i][0],"groupname":labelgroupsinfo[i][1],"departmentid":labelgroupsinfo[i][2],"functionmodule":labelgroupsinfo[i][3],"ismultiple":labelgroupsinfo[i][4],"labels":Labels}
+            Labelgroup = {"id":labelgroupsinfo[i][0],"groupname":labelgroupsinfo[i][1],"departmentid":labelgroupsinfo[i][2],"functionmodule":labelgroupsinfo[i][3],"ismultiple":labelgroupsinfo[i][4],"labels":Labels,"backgroundcolor":labelgroupsinfo[i][5],"foregroundcolor":labelgroupsinfo[i][6]}
             labelgroups.append(Labelgroup)
         return labelgroups
     

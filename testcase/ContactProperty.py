@@ -26,6 +26,9 @@ class ContactProperty(unittest.TestCase):
                         self.assertEqual(r.json()[i]['departmentId'],contactpropertylabel[ii]['departmentid'],case_describe)
                         # self.assertEqual(r.json()[i]['functionModule'],contactpropertylabel[ii]['functionmodule'],case_describe)
                         self.assertEqual(r.json()[i]['isMultiple'],contactpropertylabel[ii]['ismultiple'],case_describe)
+                        self.assertEqual(r.json()[i]['backgroundColor'],contactpropertylabel[ii]['backgroundcolor'],case_describe)
+                        self.assertEqual(r.json()[i]['foregroundColor'],contactpropertylabel[ii]['foregroundcolor'],case_describe)
+
                         for iii in range(len(r.json()[i]['labels'])):
                             for iiii in range(len(contactpropertylabel[ii]['labels'])):
                                 if r.json()[i]['labels'][iii]['id'] == contactpropertylabel[ii]['labels'][iiii]['id']:
