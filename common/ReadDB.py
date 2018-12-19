@@ -152,6 +152,10 @@ class Pyodbc:
             Labelsid.append(labelsinfo[i][0])
         return Labelsid
 
+    def GetProject(self,projectid):
+        time.sleep(1)
+        projectid = "'"+projectid+"'"
+
 
         
         
