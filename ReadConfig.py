@@ -69,8 +69,19 @@ class ReadConfig:
     def get_email(self,name):
         value = self.cf.get("EMAIL",name)
         return value
+
+    def get_labelmodule(self,name):
+        value = self.cf.get("LabelModule",name)
+        return value
+
+    def get_contact(self,name):
+        value = self.cf.get("Contact",name)
+        return value
     
-           
+    def set_contact(self,name,value):
+        self.cf.set("Contact",name,value)
+        self.save()
+     
 
 # if __name__ == "__main__":
 #     a = ReadConfig()

@@ -2,7 +2,9 @@ import xlrd
 import xlwt
 from xlutils.copy import copy
 import os
-import ReadConfig 
+import ReadConfig
+from datetime import datetime
+from xlrd import xldate_as_tuple
 
 
 class Xlrd:
@@ -43,6 +45,11 @@ class Xlrd:
         #判断python读取的返回类型  0 --empty,1 --string, 2 --number(都是浮点), 3 --date, 4 --boolean, 5 --error  
         if sheet.cell(curRowNo,curColNo).ctype == 2:
              no = int(cell)
+             
+        elif sheet.cell(curRowNo,curColNo).ctype == 3:
+            # 转成datetime对象
+            date = datetime(*xldate_as_tuple(cell, 0))
+            no = date.strftime('%Y-%m-%d')
         else:
              no = cell
         return no

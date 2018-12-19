@@ -157,5 +157,44 @@ class Pyodbc:
         projectid = "'"+projectid+"'"
 
 
+    def ContactPropertyLabel(self,Module):
+        sql = "SELECT [Id],[GroupName],[DepartmentId],[FunctionModule],[IsMultiple] FROM [dbo].[LabelGroup] WHERE [FunctionModule]={0}".format(Module)
+        self.cursor.execute(sql)
+        labelgroupsinfo= self.cursor.fetchall()
+        labelgroups = []
+        Labelgroup = {}
+        for i in range(len(labelgroupsinfo)):
+            sql = "SELECT [Id],[Name] FROM [dbo].[Label] WHERE [LabelGroupId]={0}".format(labelgroupsinfo[i][0])
+            self.cursor.execute(sql)
+            labelsinfo= self.cursor.fetchall()
+            Labels =[]
+            Label = {}
+            for ii in range(len(labelsinfo)):
+                Label ={"id":labelsinfo[ii][0],"name":labelsinfo[ii][1]}
+                Labels.append(Label)         
+            Labelgroup = {"id":labelgroupsinfo[i][0],"groupname":labelgroupsinfo[i][1],"departmentid":labelgroupsinfo[i][2],"functionmodule":labelgroupsinfo[i][3],"ismultiple":labelgroupsinfo[i][4],"labels":Labels}
+            labelgroups.append(Labelgroup)
+        return labelgroups
+    
+    def GetContactDetailsinfo(self,contactid):
+        time.sleep(1)
+        contactid = "'"+contactid+"'"
+        sql = "SELECT CorrelationId,Name,Phone,Email,Wechat,Birthday FROM [syzb_test_crm].[dbo].[Contact] WHERE CorrelationId = {0}".format(contactid)
+        self.cursor.execute(sql)
+        contactinfo= self.cursor.fetchone()
+        contact = {"correlationid":contactinfo[0],"name":contactinfo[1],"phone":contactinfo[2],"email":contactinfo[3],"wechat":contactinfo[4],"birthday":contactinfo[5]}
+        sql = "SELECT [LabelId] FROM [syzb_test_crm].[dbo].[ContactLabel] where ContactId={0}".format(contactid)
+        self.cursor.execute(sql)
+        labelinfo= self.cursor.fetchall()
+        labels = []
+        for i in range(len(labelinfo)):
+            labels.append(labelinfo[i][0])
+        contact['labels'] = labels
+        return contact
+
+
+            
+        
+
         
         
