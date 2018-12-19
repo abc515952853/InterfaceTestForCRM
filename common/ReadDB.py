@@ -157,7 +157,7 @@ class Pyodbc:
         projectid = "'"+projectid+"'"
 
 
-    def ContactPropertyLabel(self,Module):
+    def PropertyLabel(self,Module):
         sql = "SELECT [Id],[GroupName],[DepartmentId],[FunctionModule],[IsMultiple],[BackgroundColor],[ForegroundColor] FROM [dbo].[LabelGroup] WHERE [FunctionModule]={0}".format(Module)
         self.cursor.execute(sql)
         labelgroupsinfo= self.cursor.fetchall()

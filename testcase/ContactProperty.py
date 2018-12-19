@@ -18,7 +18,7 @@ class ContactProperty(unittest.TestCase):
         headers = {'Content-Type': "application/json",'Authorization':session}
         r = requests.get(url=url, headers = headers)
         if r.status_code==200:
-            contactpropertylabel = readdb.ContactPropertyLabel(readconfig.get_labelmodule('contactmodule'))
+            contactpropertylabel = readdb.PropertyLabel(readconfig.get_labelmodule('contactmodule'))
             for i in range(len(r.json())):
                 for ii in range(len(contactpropertylabel)):
                     if r.json()[i]['id'] == contactpropertylabel[ii]['id']:
