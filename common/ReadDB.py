@@ -68,7 +68,7 @@ class Pyodbc:
 		UNION ALL\
 		SELECT i=c.i+1,d.* FROM cte c \
 		INNER JOIN [dbo].[Department] d ON c.id = d.ParentId) \
-        select h.* FROM cte e inner join [dbo].[EmployeeInDepartment] f on  e.id = f.DepartmentId\
+        select distinct h.* FROM cte e inner join [dbo].[EmployeeInDepartment] f on  e.id = f.DepartmentId\
         inner join [dbo].[Customer] h on f.EmployeeId =h.CreatorId and i=1 ".format(employeeid)
         self.cursor.execute(sql)
         customerallinfo= self.cursor.fetchall()

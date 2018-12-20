@@ -22,4 +22,10 @@
 #ContactUpdateLabels
 #ContactDetails
 #ProjectCreate
-ProjectUpdateName
+#ProjectUpdateName
+#ProjectUpdateStatus
+#ProjectUpdateAmount
+#ProjectUpdateEstimate
+#ProjectUpdateConditions
+ProjectUpdateCommitment
+ProjectUpdateNewSituation
