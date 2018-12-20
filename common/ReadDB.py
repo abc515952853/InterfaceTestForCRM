@@ -192,7 +192,7 @@ class Pyodbc:
         contact['labels'] = labels
         return contact
 
-    def  GetMyDepartments(self,employeeid):
+    def GetMyDepartments(self,employeeid):
         employeeid = "'"+employeeid+"'"
         sql = "SELECT a.DepartmentId,b.Name,b.ParentId,c.Name FROM [dbo].[EmployeeInDepartment] a \
         inner join [dbo].[Department] b on a.DepartmentId = b.id \
@@ -209,6 +209,44 @@ class Pyodbc:
                 department['name']=departinfo[i][3]+'('+ department['name']+')'
             departments.append(department)
         return departments
+    
+    def GetProjectDetailsinfo(self,projectid):
+        time.sleep(1)
+        projectid = "'"+projectid+"'"
+        sql ="SELECT *  FROM [dbo].[Project] WHERE Id={0}".format(projectid)
+        self.cursor.execute(sql)
+        projectinfo= self.cursor.fetchone()
+        project = {
+            'id':projectinfo[0],
+            'projectname':projectinfo[1],
+            'customerid':projectinfo[2],
+            'projectteamid':projectinfo[3],
+            'lastupdatetime':projectinfo[4],
+            'createtime':projectinfo[5],
+            'status':projectinfo[6],
+            'project_type':projectinfo[7],
+            'sellername':projectinfo[8],
+            'buyername':projectinfo[9],
+            'businesstarget':projectinfo[10],
+            'businesstype':projectinfo[11],
+            'guarantee':projectinfo[12],
+            'quota':projectinfo[13],
+            'period':projectinfo[14],
+            'interestrate1':projectinfo[15],
+            'interestrate2':projectinfo[16],
+            'interestrate3':projectinfo[17],
+            'amount':projectinfo[18],
+            'estimate':projectinfo[19],
+            'conditions':projectinfo[20],
+            'commitment':projectinfo[21],
+            'newsituation':projectinfo[22],
+            'creator':projectinfo[23],
+            'creatorid':projectinfo[24],
+            'departmentid':projectinfo[25]
+        }
+        return project
+
+
 
 
             

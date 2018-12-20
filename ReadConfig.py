@@ -81,8 +81,15 @@ class ReadConfig:
     def set_contact(self,name,value):
         self.cf.set("Contact",name,value)
         self.save()
-     
 
+    def get_project(self,name):
+        value = self.cf.get("Project",name)
+        return value
+    
+    def set_project(self,name,value):
+        self.cf.set("Project",name,value)
+        self.save()
+        
 # if __name__ == "__main__":
 #     a = ReadConfig()
 #     a.get_url('url')

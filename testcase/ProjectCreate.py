@@ -77,12 +77,12 @@ class ProjectCreate(unittest.TestCase):
         requestid = str(uuid.uuid1())
         headers = {'Content-Type': "application/json",'Authorization':session,"x-requestid":requestid}
         r = requests.post(url=url,data = json.dumps(payload),headers = headers)
-        print(r.status_code)
+        print(r.status_code,r.json())
         #处理请求数据到excl用例文件
         excel.set_cell(sheet_name,int(data["case_id"]),excel.get_sheet_colname(sheet_name)["result_code"],r.status_code,excel.set_color(r.status_code))
         excel.set_cell(sheet_name,int(data["case_id"]),excel.get_sheet_colname(sheet_name)["result_msg"],r.text,excel.set_color())
         excel.save()
-        
+
         #数据对比
         if r.status_code==200 or r.status_code ==204:
             projectinfo = readdb.GetProject(requestid)
@@ -97,5 +97,10 @@ class ProjectCreate(unittest.TestCase):
         #     for i in range(len(customerlabelsid)):
         #         self.assertIn(customerlabelsid[i],labels,case_describe)
         #         self.assertEqual(len(customerlabelsid),len(labels),case_describe)
+
+            if department =='investment':
+                readconfig.set_project('projectinvestmentid',requestid)
+            elif department =='factoring':
+                readconfig.set_project('projectfactoringid',requestid)
         # self.assertEqual(r.status_code,data['expected_code'],case_describe)
 
