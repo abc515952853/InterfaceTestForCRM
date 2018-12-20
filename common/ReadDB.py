@@ -192,6 +192,24 @@ class Pyodbc:
         contact['labels'] = labels
         return contact
 
+    def  GetMyDepartments(self,employeeid):
+        employeeid = "'"+employeeid+"'"
+        sql = "SELECT a.DepartmentId,b.Name,b.ParentId,c.Name FROM [dbo].[EmployeeInDepartment] a \
+        inner join [dbo].[Department] b on a.DepartmentId = b.id \
+        left join [dbo].[Department] c on b.ParentId = c.id  WHERE EmployeeId={0}".format(employeeid)
+        self.cursor.execute(sql)
+        departinfo= self.cursor.fetchall()
+        departments = []
+        for i in range(len(departinfo)):
+            department = {"id":departinfo[i][0],"name":departinfo[i][1]}
+            if departinfo[i][2] == 1 or departinfo[i][2] is None:
+                department['querylabeldepartmentid'] = departinfo[i][0]
+            else:
+                department['querylabeldepartmentid'] = departinfo[i][2]
+                department['name']=departinfo[i][3]+'('+ department['name']+')'
+            departments.append(department)
+        return departments
+
 
             
         
