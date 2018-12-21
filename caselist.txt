@@ -27,5 +27,15 @@
 #ProjectUpdateAmount
 #ProjectUpdateEstimate
 #ProjectUpdateConditions
-ProjectUpdateCommitment
-ProjectUpdateNewSituation
+#ProjectUpdateCommitment
+#ProjectUpdateNewSituation
+ProjectUpdateSellerName
+ProjectUpdateBuyerName
+ProjectUpdateBusinessTarget
+ProjectUpdateBusinessType
+ProjectUpdateGuarantee
+ProjectUpdateQuota
+ProjectUpdatePeriod
+ProjectUpdateInterestRate1
+ProjectUpdateInterestRate2
+ProjectUpdateInterestRate3
