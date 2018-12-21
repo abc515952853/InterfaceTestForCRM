@@ -15,7 +15,7 @@ excel = ReadExcl.Xlrd()
 class ProjectUpdateInterestRate3(unittest.TestCase): 
     @ddt.data(*excel.get_xls_next(sheet_name))
     def test_ProjectUpdateInterestRate3(self,data):
-        interestrate3 = str(data["interestrate3"])
+        interestrate3 = int(data["interestrate3"])
         department = str(data["department"])
         case_describe = str(data["case_describe"])
         expected_code = int(data["expected_code"])

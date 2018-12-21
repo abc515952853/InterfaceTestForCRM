@@ -15,7 +15,7 @@ excel = ReadExcl.Xlrd()
 class ProjectUpdateQuota(unittest.TestCase): 
     @ddt.data(*excel.get_xls_next(sheet_name))
     def test_ProjectUpdateQuota(self,data):
-        quota = str(data["quota"])
+        quota = int(data["quota"])
         department = str(data["department"])
         case_describe = str(data["case_describe"])
         expected_code = int(data["expected_code"])

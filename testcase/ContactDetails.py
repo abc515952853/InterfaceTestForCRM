@@ -13,7 +13,7 @@ class ContactDetails(unittest.TestCase):
         readconfig=ReadConfig.ReadConfig()
         readdb = ReadDB.Pyodbc()
 
-        contactid = readconfig.get_contact('contact5')
+        contactid = readconfig.get_contact('contact1')
         url = readconfig.get_url('url')+api.format(contactid)
         session =  readconfig.get_member('session')
         headers = {'Content-Type': "application/json",'Authorization':session}
@@ -23,6 +23,7 @@ class ContactDetails(unittest.TestCase):
         if r.status_code == 200:
             #Name,Phone,Email,Wechat,Birthday
             contactinfo = readdb.GetContactDetailsinfo(contactid)
+            print(contactinfo)
             self.assertEqual(contactinfo['name'],r.json()['name'],case_describe)
             self.assertEqual(contactinfo['phone'],r.json()['phone'],case_describe)
             self.assertEqual(contactinfo['email'],r.json()['email'],case_describe)
