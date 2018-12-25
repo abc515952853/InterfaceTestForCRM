@@ -76,6 +76,7 @@ class ProjectCreate(unittest.TestCase):
         session =  readconfig.get_member('session')
         requestid = str(uuid.uuid1())
         headers = {'Content-Type': "application/json",'Authorization':session,"x-requestid":requestid}
+        print(url,headers,payload)
         r = requests.post(url=url,data = json.dumps(payload),headers = headers)
         #处理请求数据到excl用例文件
         excel.set_cell(sheet_name,int(data["case_id"]),excel.get_sheet_colname(sheet_name)["result_code"],r.status_code,excel.set_color(r.status_code))
