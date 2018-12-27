@@ -6,29 +6,29 @@ import requests
 import json 
 import uuid
 
-api='api/Customer/{0}/Prospect'
-sheet_name = "CustomerUpdateProspect"
+api='api/Contact/{0}/Job'
+sheet_name = "ContactUpdateJob"
 
 excel = ReadExcl.Xlrd()
 
 @ddt.ddt
-class CustomerUpdateProspect(unittest.TestCase): 
+class ContactUpdateJob(unittest.TestCase): 
     @ddt.data(*excel.get_xls_next(sheet_name))
-    def test_CustomerUpdateProspect(self,data):
-        Type = int(data["type"])
-        customertab = str(data["customertab"])
+    def test_ContactUpdateJob(self,data):
+        job = str(data["job"])
         case_describe = str(data["case_describe"])
+        expected_code = int(data["expected_code"])
 
         readconfig=ReadConfig.ReadConfig()
         readdb = ReadDB.Pyodbc()
 
-        correlationid = readconfig.get_customer(customertab)
-        url = readconfig.get_url('url')+api.format(correlationid)
+        contactid = readconfig.get_contact('contact1')
+        url = readconfig.get_url('url')+api.format(contactid)
         session =  readconfig.get_member('session')
         requestid = str(uuid.uuid1())
         headers = {'Content-Type': "application/json",'Authorization':session,"x-requestid":requestid}
         payload ={
-            "customerProspectId":Type
+            "job":job
         }
         r = requests.post(url=url,data = json.dumps(payload),headers = headers)
 
@@ -38,8 +38,8 @@ class CustomerUpdateProspect(unittest.TestCase):
         excel.save()
         
         #数据对比
-        if r.status_code==200:
-            customerdetails = readdb.GetCustomerDetailsinfo(correlationid)
-            self.assertEqual(int(customerdetails['customerProspectId']),Type,case_describe)
+        if r.status_code == expected_code:
+            contactdetails = readdb.GetContactDetailsinfo(contactid)
+            self.assertEqual(contactdetails['job'],job,case_describe)
         else:
-            self.assertEqual(r.status_code,200,case_describe)  
+            self.assertEqual(r.status_code,expected_code,case_describe)   

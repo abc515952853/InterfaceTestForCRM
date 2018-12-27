@@ -35,7 +35,6 @@ class TestContactCreate(unittest.TestCase):
             "phone": phone,
             "labelIds":labels
             }
-        print(url,headers,payload)
 
         r = requests.post(url=url,data = json.dumps(payload),headers = headers)
     

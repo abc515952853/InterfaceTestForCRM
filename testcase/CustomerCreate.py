@@ -21,9 +21,7 @@ class TestCustomerCreate(unittest.TestCase):
         shortName = str(data["shortName"])
         city = str(data["city"])
         state = str(data["state"])
-        customerProspectId = int(data["customerProspectId"])
-        customerTypeId = int(data["customerTypeId"])
-        customerKind = int(data["customerTypeId"])
+        customerKind = int(data["customerKind"])
         labels = list(map(int,str(data["labels"]).split(',')))
         case_describe = str(data["case_describe"])
 
@@ -46,8 +44,6 @@ class TestCustomerCreate(unittest.TestCase):
             "shortName": shortName,
             "city": city,
             "state": state,
-            "customerProspectId": customerProspectId,
-            "customerTypeId":customerTypeId,
             "synopsis":synopsis,
             "customerKind":customerKind,
             "labelIds":labels
@@ -67,8 +63,6 @@ class TestCustomerCreate(unittest.TestCase):
             self.assertEqual(customerinfo['shortName'],shortName,case_describe)
             self.assertEqual(customerinfo['city'],city,case_describe)
             self.assertEqual(customerinfo['state'],state,case_describe)
-            self.assertEqual(customerinfo['customerProspectId'],str(customerProspectId),case_describe)
-            self.assertEqual(customerinfo['customerTypeId'],str(customerTypeId),case_describe)
             self.assertEqual(customerinfo['customerKind'],str(customerKind),case_describe)
             for i in range(len(customerlabelsid)):
                 self.assertIn(customerlabelsid[i],labels,case_describe)

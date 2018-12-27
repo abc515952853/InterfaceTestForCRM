@@ -20,8 +20,11 @@
 #ContactUpdateEmail
 #ContactUpdateWechat
 #ContactUpdateLabels
+#ContactUpdateAddress
+ContactUpdateCompanyName
+ContactUpdateJob
 #ContactDetails
-ProjectCreate
+#ProjectCreate
 #ProjectUpdateName
 #ProjectUpdateStatus
 #ProjectUpdateAmount

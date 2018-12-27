@@ -18,12 +18,10 @@ class ContactDetails(unittest.TestCase):
         session =  readconfig.get_member('session')
         headers = {'Content-Type': "application/json",'Authorization':session}
         r = requests.get(url=url, headers = headers)
-        # print(r.json())
         
         if r.status_code == 200:
             #Name,Phone,Email,Wechat,Birthday
             contactinfo = readdb.GetContactDetailsinfo(contactid)
-            print(contactinfo)
             self.assertEqual(contactinfo['name'],r.json()['name'],case_describe)
             self.assertEqual(contactinfo['phone'],r.json()['phone'],case_describe)
             self.assertEqual(contactinfo['email'],r.json()['email'],case_describe)
