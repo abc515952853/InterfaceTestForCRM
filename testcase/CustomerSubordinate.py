@@ -5,7 +5,7 @@ import ReadConfig
 import requests
 import json 
 
-api='api/Customer/subordinate?key=&departmentId=&pageIndex=1&pageSize=1000'
+api='api/v1.2/Customer/Subordinate?key=&departmentIds=&pageIndex=1&pageSize=1000'
 case_describe = '获取我下级的客户'
 
 class CustomerSubordinate(unittest.TestCase): 

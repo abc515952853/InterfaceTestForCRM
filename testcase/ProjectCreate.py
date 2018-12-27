@@ -30,7 +30,7 @@ class ProjectCreate(unittest.TestCase):
             newSituation = str(data["newSituation"])
             payload ={
                 "projectName": projectName,
-                "customerId": "38AF8FE6-18AA-4289-86A8-63D5D9025767",
+                "customerId": "87A79C43-D2B0-42B0-9949-9BFB4A2991E3",
                 "status": 63,
                 "departmentId": readconfig.get_member('investmentdepartmentId'),
                 "investmentProject": {
@@ -54,7 +54,7 @@ class ProjectCreate(unittest.TestCase):
             interestRate3= str(data["interestRate3"])
             payload ={
                 "projectName": projectName,
-                "customerId": "38AF8FE6-18AA-4289-86A8-63D5D9025767",
+                "customerId": "87A79C43-D2B0-42B0-9949-9BFB4A2991E3",
                 "status": 63,
                 "departmentId": readconfig.get_member('factoringdepartmentId'),
                 "factoringProject": {

@@ -21,12 +21,18 @@ class ContactDetails(unittest.TestCase):
         
         if r.status_code == 200:
             #Name,Phone,Email,Wechat,Birthday
+            print(r.json())
             contactinfo = readdb.GetContactDetailsinfo(contactid)
             self.assertEqual(contactinfo['name'],r.json()['name'],case_describe)
             self.assertEqual(contactinfo['phone'],r.json()['phone'],case_describe)
             self.assertEqual(contactinfo['email'],r.json()['email'],case_describe)
             self.assertEqual(contactinfo['wechat'],r.json()['wechat'],case_describe)
             self.assertEqual(contactinfo['birthday'].strftime('%Y-%m-%d %H:%M'),r.json()['birthday'],case_describe)
+            self.assertEqual(contactinfo['state'],r.json()['state'],case_describe)
+            self.assertEqual(contactinfo['street'],r.json()['street'],case_describe)
+            self.assertEqual(contactinfo['city'],r.json()['city'],case_describe)
+            # self.assertEqual(contactinfo['companyname'],r.json()['companyname'],case_describe)
+            # self.assertEqual(contactinfo['job'],r.json()['job'],case_describe)
             la =[]
             for ii in range(len(r.json()['labels'])):
                 la.append(r.json()['labels'][ii]['id'])

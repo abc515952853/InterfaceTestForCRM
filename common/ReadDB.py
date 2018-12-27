@@ -37,10 +37,11 @@ class Pyodbc:
         }
         return customerinfo
 
-    def GetCustomerMyresponsibleinfo(self,employeeid):
+    def GetCustomerMyinfo(self,employeeid):
         time.sleep(1)
         employeeid = "'"+employeeid+"'"
-        sql = "SELECT * FROM [dbo].[Customer] WHERE [CreatorId]={0}".format(employeeid)
+        sql = "SELECT  distinct CustomerId FROM [syzb_test_crm].[dbo].[CustomerInDepartment] where DepartmentId in \
+        (SELECT DepartmentId FROM [syzb_test_crm].[dbo].[EmployeeInDepartment] where EmployeeId={0})".format(employeeid)
         self.cursor.execute(sql)
         customerallinfo= self.cursor.fetchall()
         customerallid = []
@@ -62,14 +63,13 @@ class Pyodbc:
     def GetCustomerSubordinateinfo(self,employeeid):
         time.sleep(1)
         employeeid = "'"+employeeid+"'"
-        sql = " WITH cte AS(\
-		SELECT i=1, a.* FROM [dbo].[Department] a\
+        sql = " WITH cte AS(SELECT i=1, a.* FROM [dbo].[Department] a\
 		WHERE a.id in(SELECT DepartmentId FROM [syzb_test_crm].[dbo].[EmployeeInDepartment] WHERE EmployeeId={0} and IsLeader=1)\
 		UNION ALL\
 		SELECT i=c.i+1,d.* FROM cte c \
 		INNER JOIN [dbo].[Department] d ON c.id = d.ParentId) \
-        select distinct h.* FROM cte e inner join [dbo].[EmployeeInDepartment] f on  e.id = f.DepartmentId\
-        inner join [dbo].[Customer] h on f.EmployeeId =h.CreatorId and i=1 ".format(employeeid)
+        SELECT distinct CustomerId FROM [dbo].[CustomerInDepartment] a\
+        inner join [syzb_test_crm].[dbo].[Customer] b on a.CustomerId =b.CorrelationId  where DepartmentId in (SELECT id FROM cte UNION  SELECT DepartmentId FROM [syzb_test_crm].[dbo].[EmployeeInDepartment] where EmployeeId={0})".format(employeeid)
         self.cursor.execute(sql)
         customerallinfo= self.cursor.fetchall()
         customerallid = []
@@ -129,10 +129,10 @@ class Pyodbc:
 
     def GetCustomerInDepartmentinfo(self,key,departmentId):
         if departmentId == '1' or departmentId=='':
-            sql = "SELECT CorrelationId FROM [syzb_test_crm].[dbo].[Customer] where  Name like '%{}%'".format(key)
+            sql = "SELECT CorrelationId FROM [dbo].[Customer] where  Name like '%{}%'".format(key)
         else: 
-            sql = "SELECT CorrelationId FROM [syzb_test_crm].[dbo].[Customer] where CreatorId in \
-            (SELECT EmployeeId FROM [dbo].[EmployeeInDepartment] where DepartmentId={}) and Name like '%{}%'".format(departmentId,key)
+            sql = "SELECT CorrelationId FROM [dbo].[Customer] where CorrelationId in \
+            (SELECT CustomerId FROM [dbo].[CustomerInDepartment] where DepartmentId={}) and Name like '%{}%'".format(departmentId,key)
         self.cursor.execute(sql)
         CustomerInDepartmentinfo= self.cursor.fetchall()
         CustomerInDepartmentid = []

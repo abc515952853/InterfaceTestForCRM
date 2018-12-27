@@ -5,11 +5,11 @@ import ReadConfig
 import requests
 import json 
 
-api='api/Customer?key=&departmentId=&pageIndex=1&pageSize=100'
+api='api/v1.2/Customer/My?key=&departmentIds=&pageIndex=1&pageSize=100'
 case_describe = '获取我负责的客户'
 
-class CustomerMyresponsible(unittest.TestCase): 
-    def test_CustomerMyresponsible(self):
+class CustomerMy(unittest.TestCase): 
+    def test_CustomerMy(self):
         readconfig=ReadConfig.ReadConfig()
         readdb = ReadDB.Pyodbc()
 
@@ -17,8 +17,9 @@ class CustomerMyresponsible(unittest.TestCase):
         session =  readconfig.get_member('session')
         headers = {'Content-Type': "application/json",'Authorization':session}
         r = requests.get(url=url, headers = headers)
+
         if r.status_code==200:
-            customermyresponsibleid = readdb.GetCustomerMyresponsibleinfo(readconfig.get_member('employeeid'))
+            customermyresponsibleid = readdb.GetCustomerMyinfo(readconfig.get_member('employeeid'))
             responecustomermyresponsibleid = []
             for i in range(len(r.json()['list'])):
                 responecustomermyresponsibleid.append(r.json()['list'][i]['id'])
