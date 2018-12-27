@@ -24,7 +24,6 @@ class CustomerMy(unittest.TestCase):
             for i in range(len(r.json()['list'])):
                 responecustomermyresponsibleid.append(r.json()['list'][i]['id'])
                 self.assertIn(r.json()['list'][i]['id'].upper(),customermyresponsibleid,case_describe)
-            readconfig.set_customer('customerresponsibleid',r.json()['list'][0]['id'])
             self.assertEqual(len(responecustomermyresponsibleid),len(customermyresponsibleid),case_describe)
             self.assertEqual(r.json()['count'],len(customermyresponsibleid),case_describe)
         else:

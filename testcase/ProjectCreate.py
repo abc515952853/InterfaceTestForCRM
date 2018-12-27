@@ -28,11 +28,12 @@ class ProjectCreate(unittest.TestCase):
             conditions = str(data["conditions"])
             commitment = str(data["commitment"])
             newSituation = str(data["newSituation"])
+            departmentId = readconfig.get_member('investmentdepartmentId')
             payload ={
                 "projectName": projectName,
-                "customerId": "87A79C43-D2B0-42B0-9949-9BFB4A2991E3",
+                "customerId": readconfig.get_customer("investmentcustomerid"),
                 "status": 63,
-                "departmentId": readconfig.get_member('investmentdepartmentId'),
+                "departmentId": departmentId,
                 "investmentProject": {
                 "amount": amount,
                 "estimate": estimate,
@@ -52,11 +53,12 @@ class ProjectCreate(unittest.TestCase):
             interestRate1= str(data["interestRate1"])
             interestRate2= str(data["interestRate2"])
             interestRate3= str(data["interestRate3"])
+            departmentId = readconfig.get_member('factoringdepartmentId')
             payload ={
                 "projectName": projectName,
-                "customerId": "87A79C43-D2B0-42B0-9949-9BFB4A2991E3",
+                "customerId": readconfig.get_customer("actoringdecustomerid"),
                 "status": 63,
-                "departmentId": readconfig.get_member('factoringdepartmentId'),
+                "departmentId": departmentId,
                 "factoringProject": {
                     "sellerName": sellerName,
                     "buyerName": buyerName,
@@ -70,6 +72,8 @@ class ProjectCreate(unittest.TestCase):
                     "interestRate3": interestRate3
                 }
             }
+        case_describe = str(data["case_describe"])
+        expected_code = int(data["expected_code"])
 
         #填写求求参数h
         url = readconfig.get_url('url')+api
@@ -84,22 +88,31 @@ class ProjectCreate(unittest.TestCase):
 
         #数据对比
         if r.status_code==200 or r.status_code ==204:
-            projectinfo = readdb.GetProject(requestid)
-        #     customerlabelsid = readdb.GetCustomerLabelsinfo(customerinfo['correlationId'])
-        #     self.assertEqual(customerinfo['name'],name,case_describe)
-        #     self.assertEqual(customerinfo['shortName'],shortName,case_describe)
-        #     self.assertEqual(customerinfo['city'],city,case_describe)
-        #     self.assertEqual(customerinfo['state'],state,case_describe)
-        #     self.assertEqual(customerinfo['customerProspectId'],str(customerProspectId),case_describe)
-        #     self.assertEqual(customerinfo['customerTypeId'],str(customerTypeId),case_describe)
-        #     self.assertEqual(customerinfo['customerKind'],str(customerKind),case_describe)
-        #     for i in range(len(customerlabelsid)):
-        #         self.assertIn(customerlabelsid[i],labels,case_describe)
-        #         self.assertEqual(len(customerlabelsid),len(labels),case_describe)
+            projectinfo = readdb.GetProjectDetailsinfo(requestid)
 
             if department =='investment':
+                self.assertEqual(projectinfo['projectname'],projectName,case_describe)
+                self.assertEqual(projectinfo['status'],63,case_describe)
+                self.assertEqual(projectinfo['departmentid'],int(departmentId),case_describe)
+                self.assertEqual(int(projectinfo['amount']),int(amount),case_describe)
+                self.assertEqual(int(projectinfo['estimate']),int(estimate),case_describe)
+                self.assertEqual(projectinfo['conditions'],conditions,case_describe)
+                self.assertEqual(projectinfo['commitment'],commitment,case_describe)
+                self.assertEqual(projectinfo['newsituation'],newSituation,case_describe)
                 readconfig.set_project('projectinvestmentid',requestid)
             elif department =='factoring':
+                self.assertEqual(projectinfo['projectname'],projectName,case_describe)
+                self.assertEqual(projectinfo['status'],63,case_describe)
+                self.assertEqual(projectinfo['departmentid'],int(departmentId),case_describe)
+                self.assertEqual(projectinfo['buyername'],buyerName,case_describe)
+                self.assertEqual(projectinfo['businesstarget'],businessTarget,case_describe)
+                self.assertEqual(projectinfo['businesstype'],businessType,case_describe)
+                self.assertEqual(projectinfo['guarantee'],guarantee,case_describe)
+                self.assertEqual(projectinfo['quota'],quota,case_describe)
+                self.assertEqual(projectinfo['period'],period,case_describe)
+                self.assertEqual(int(projectinfo['interestrate1']),int(interestRate1),case_describe)
+                self.assertEqual(int(projectinfo['interestrate2']),int(interestRate2),case_describe)
+                self.assertEqual(int(projectinfo['interestrate3']),int(interestRate3),case_describe)
                 readconfig.set_project('projectfactoringid',requestid)
-        # self.assertEqual(r.status_code,data['expected_code'],case_describe)
+        self.assertEqual(r.status_code,expected_code,case_describe)
 

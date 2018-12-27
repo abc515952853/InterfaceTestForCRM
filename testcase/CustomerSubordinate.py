@@ -23,8 +23,6 @@ class CustomerSubordinate(unittest.TestCase):
             for i in range(len(r.json()['list'])):
                 responecustomersubordinateid.append(r.json()['list'][i]['id'])
                 self.assertIn(r.json()['list'][i]['id'].upper(),customersubordinateid,case_describe)
-                if r.json()['list'][i]['id'] != readconfig.get_customer("customerresponsibleid"):
-                    readconfig.set_customer('customersubordinateid',r.json()['list'][i]['id'])
             self.assertEqual(len(responecustomersubordinateid),len(customersubordinateid),case_describe)
             self.assertEqual(r.json()['count'],len(customersubordinateid),case_describe)
         else:

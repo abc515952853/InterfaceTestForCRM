@@ -3,7 +3,7 @@
 #CustomerMy
 #CustomerAccessorial
 #CustomerSubordinate
-CustomerAll
+#CustomerAll
 #CustomerUpdateName
 #CustomerUpdateShortName
 #CustomerUpdateArea
@@ -23,7 +23,7 @@ CustomerAll
 #ContactUpdateCompanyName
 #ContactUpdateJob
 #ContactDetails
-#ProjectCreate
+ProjectCreate
 #ProjectUpdateName
 #ProjectUpdateStatus
 #ProjectUpdateAmount

@@ -22,6 +22,7 @@ class TestCustomerCreate(unittest.TestCase):
         city = str(data["city"])
         state = str(data["state"])
         customerKind = int(data["customerKind"])
+        departtype = int(data["departtype"])
         labels = list(map(int,str(data["labels"]).split(',')))
         case_describe = str(data["case_describe"])
 
@@ -39,15 +40,24 @@ class TestCustomerCreate(unittest.TestCase):
             shortName = shortName+str(data["case_id"])
         if data["synopsis"] != '':
             synopsis = synopsis+str(data["case_id"])
+
+        if departtype == 1:
+            departid = readconfig.get_member('investmentdepartmentId')
+            idtype = 'investmentcustomerid'
+        elif departtype ==2:
+            departid = readconfig.get_member('factoringdepartmentid')
+            idtype = idtype = 'actoringdecustomerid'
         payload ={
             "name": name,
             "shortName": shortName,
             "city": city,
             "state": state,
-            "synopsis":synopsis,
+            "synopsis":synopsis,    
             "customerKind":customerKind,
-            "labelIds":labels
+            "labelIds":labels,
+            "departmentId":departid
             }
+
         r = requests.post(url=url,data = json.dumps(payload),headers = headers)
 
         #处理请求数据到excl用例文件
@@ -68,5 +78,6 @@ class TestCustomerCreate(unittest.TestCase):
                 self.assertIn(customerlabelsid[i],labels,case_describe)
                 self.assertEqual(len(customerlabelsid),len(labels),case_describe)
         self.assertEqual(r.status_code,data['expected_code'],case_describe)
+        readconfig.set_customer(idtype,customerinfo['correlationId'])
             
 

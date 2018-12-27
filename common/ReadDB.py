@@ -142,11 +142,6 @@ class Pyodbc:
             Labelsid.append(labelsinfo[i][0])
         return Labelsid
 
-    def GetProject(self,projectid):
-        time.sleep(1)
-        projectid = "'"+projectid+"'"
-
-
     def PropertyLabel(self,Module):
         sql = "SELECT [Id],[GroupName],[DepartmentId],[FunctionModule],[IsMultiple],[BackgroundColor],[ForegroundColor] FROM [dbo].[LabelGroup] WHERE [FunctionModule]={0}".format(Module)
         self.cursor.execute(sql)
