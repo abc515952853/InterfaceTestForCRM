@@ -41,3 +41,4 @@ ProjectCreate
 #ProjectUpdateInterestRate1
 #ProjectUpdateInterestRate2
 #ProjectUpdateInterestRate3
+ProjectDetail
