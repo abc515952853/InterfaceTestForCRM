@@ -49,16 +49,6 @@ class Pyodbc:
             customerallid.append(str(customerallinfo[i][0]))
         return customerallid
     
-    def GetCustomerAccessorialinfo(self,employeeid):
-        time.sleep(1)
-        employeeid = "'"+employeeid+"'"
-        sql = "SELECT * FROM [dbo].[Customer] WHERE [AssisterId]={0}".format(employeeid)
-        self.cursor.execute(sql)
-        customerallinfo= self.cursor.fetchall()
-        customerallid = []
-        for i in range(len(customerallinfo)):
-            customerallid.append(str(customerallinfo[i][0]))
-        return customerallid
 
     def GetCustomerSubordinateinfo(self,employeeid):
         time.sleep(1)
