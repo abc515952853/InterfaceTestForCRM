@@ -232,6 +232,15 @@ class Pyodbc:
         }
         return project
 
+    def GetProjectInCustomerinfo(self,projectid):
+        projectid = "'"+projectid+"'"
+        sql = "SELECT id FROM [syzb_test_crm].[dbo].[Project] where CustomerId={}".format(projectid)
+        self.cursor.execute(sql)
+        ProjectInCustomerinfo= self.cursor.fetchall()
+        ProjectInCustomerid = []
+        for i in range(len(ProjectInCustomerinfo)):
+            ProjectInCustomerid.append(ProjectInCustomerinfo[i][0])
+        return ProjectInCustomerid
 
 
 

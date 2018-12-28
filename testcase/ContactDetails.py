@@ -21,7 +21,6 @@ class ContactDetails(unittest.TestCase):
         
         if r.status_code == 200:
             #Name,Phone,Email,Wechat,Birthday
-            print(r.json())
             contactinfo = readdb.GetContactDetailsinfo(contactid)
             self.assertEqual(contactinfo['name'],r.json()['name'],case_describe)
             self.assertEqual(contactinfo['phone'],r.json()['phone'],case_describe)
