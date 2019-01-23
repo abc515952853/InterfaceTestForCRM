@@ -1,4 +1,4 @@
-import unittest
+import unittest,BeautifulReport
 from HTMLTestRunner import HTMLTestRunner
 import datetime
 import os

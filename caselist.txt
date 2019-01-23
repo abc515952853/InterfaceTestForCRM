@@ -23,7 +23,7 @@
 #ContactUpdateCompanyName
 #ContactUpdateJob
 #ContactDetails
-#ProjectCreate
+ProjectCreate
 #ProjectUpdateName
 #ProjectUpdateStatus
 #ProjectUpdateAmount
@@ -43,4 +43,4 @@
 #ProjectUpdateInterestRate3
 #ProjectDetail
 #ProjectAll
-ScheduleAdd
+#ScheduleAdd
