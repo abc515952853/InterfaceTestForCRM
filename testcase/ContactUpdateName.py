@@ -23,7 +23,7 @@ class ContactUpdateName(unittest.TestCase):
         readdb = ReadDB.Pyodbc()
 
         contactid = readconfig.get_contact('contact1')
-        url = readconfig.get_url('url')+api.format(contactid)
+        url = readconfig.get_url('crmurl')+api.format(contactid)
         session =  readconfig.get_member('session')
         requestid = str(uuid.uuid1())
         headers = {'Content-Type': "application/json",'Authorization':session,"x-requestid":requestid}

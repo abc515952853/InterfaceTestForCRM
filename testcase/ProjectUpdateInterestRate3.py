@@ -25,7 +25,7 @@ class ProjectUpdateInterestRate3(unittest.TestCase):
 
         projectid = readconfig.get_project('projectfactoringid')
 
-        url = readconfig.get_url('url')+api.format(projectid)
+        url = readconfig.get_url('crmurl')+api.format(projectid)
         session =  readconfig.get_member('session')
         requestid = str(uuid.uuid1())
         headers = {'Content-Type': "application/json",'Authorization':session,"x-requestid":requestid}

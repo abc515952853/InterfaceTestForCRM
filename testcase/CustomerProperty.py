@@ -14,7 +14,7 @@ class CustomerProperty(unittest.TestCase):
     #     readconfig=ReadConfig.ReadConfig()
     #     readdb = ReadDB.Pyodbc()
 
-    #     url = readconfig.get_url('url')+api1
+    #     url = readconfig.get_url('crmurl')+api1
     #     session =  readconfig.get_member('session')
     #     headers = {'Content-Type': "application/json",'Authorization':session}
     #     r = requests.get(url=url, headers = headers)
@@ -43,7 +43,7 @@ class CustomerProperty(unittest.TestCase):
         readconfig=ReadConfig.ReadConfig()
         readdb = ReadDB.Pyodbc()
 
-        url = readconfig.get_url('url')+api2
+        url = readconfig.get_url('crmurl')+api2
         session =  readconfig.get_member('session')
         headers = {'Content-Type': "application/json",'Authorization':session}
         r = requests.get(url=url, headers = headers)
