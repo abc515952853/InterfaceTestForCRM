@@ -11,7 +11,7 @@ class Xlrd:
     def __init__(self,):
         proDir = ReadConfig.proDir
         readconfig=ReadConfig.ReadConfig()
-        xls_name = readconfig.get_xls('xls_name')
+        xls_name = readconfig.get_basedata('testcase_xls_name')
         self.xlsPath = os.path.join(proDir,'testfile',xls_name)
         self.openfile = xlrd.open_workbook(self.xlsPath,'w',formatting_info= True)
         self.newfile = copy(self.openfile)

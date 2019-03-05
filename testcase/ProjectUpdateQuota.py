@@ -25,7 +25,7 @@ class ProjectUpdateQuota(unittest.TestCase):
 
         projectid = readconfig.get_project('projectfactoringid')
 
-        url = readconfig.get_url('crmurl')+api.format(projectid)
+        url = readconfig.get_basedata('crm_url')+api.format(projectid)
         session =  readconfig.get_basedata('session')
         requestid = str(uuid.uuid1())
         headers = {'Content-Type': "application/json",'Authorization':session,"x-requestid":requestid}

@@ -13,7 +13,6 @@ class ReadConfig:
         
         #  remove BOM
         if data[:3] == codecs.BOM_UTF8:
-            print('111')
             data = data[3:]
             file = codecs.open(configPath, "w")
             file.write(data)
@@ -23,25 +22,6 @@ class ReadConfig:
         self.cf = configparser.ConfigParser()
         self.cf.read(configPath,encoding='utf-8')
 
-    #获取URL信息
-    def get_url(self, name):
-        value = self.cf.get("URL", name)
-        return value
-    
-    #获取DB信息
-    def get_db(self,name):
-        value = self.cf.get("DB",name)
-        return value
-
-    #获取TESTCASE信息
-    def get_xls(self,name):
-        value = self.cf.get("TESTCASE",name)
-        return value
-
-    #重设TESTCASE信息    
-    def set_xls(self,name,value):
-        self.cf.set("MEMTESTCASEBER",name,value)
-    
     #获取BASEDATA信息
     def get_basedata(self,name):
         value = self.cf.get("BASEDATA",name)
@@ -52,44 +32,10 @@ class ReadConfig:
         self.cf.set("BASEDATA",name,value)
         self.save()
 
-    #获取Customer信息
-    def get_customer(self,name):
-        value = self.cf.get("Customer",name)
-        return value
-
-    #重设Customer信息
-    def set_customer(self,name,value):
-        self.cf.set("Customer",name,value)
-        self.save()
-
     #写入ini文件
     def save(self):
         self.cf.write(open(configPath, "w"))
 
-    #获取EMAIL信息
-    def get_email(self,name):
-        value = self.cf.get("EMAIL",name)
-        return value
-
-    def get_labelmodule(self,name):
-        value = self.cf.get("LabelModule",name)
-        return value
-
-    def get_contact(self,name):
-        value = self.cf.get("Contact",name)
-        return value
-    
-    def set_contact(self,name,value):
-        self.cf.set("Contact",name,value)
-        self.save()
-
-    def get_project(self,name):
-        value = self.cf.get("Project",name)
-        return value
-    
-    def set_project(self,name,value):
-        self.cf.set("Project",name,value)
-        self.save()
         
 # if __name__ == "__main__":
 #     a = ReadConfig()

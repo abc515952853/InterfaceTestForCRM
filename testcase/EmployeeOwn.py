@@ -13,7 +13,7 @@ class EmployeeOwn(unittest.TestCase):
         readconfig=ReadConfig.ReadConfig()
         readdb = ReadDB.Pyodbc()
 
-        url = readconfig.get_url('hrurl')+api
+        url = readconfig.get_basedata('hr_url')+api
         session =  readconfig.get_basedata('session')
         headers = {'Content-Type': "application/json",'Authorization':session}
         r = requests.get(url=url, headers = headers)

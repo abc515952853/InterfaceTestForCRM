@@ -76,7 +76,7 @@ class ProjectCreate(unittest.TestCase):
         expected_code = int(data["expected_code"])
 
         #填写求求参数h
-        url = readconfig.get_url('crmurl')+api
+        url = readconfig.get_basedata('crm_url')+api
         session =  readconfig.get_basedata('session')
         requestid = str(uuid.uuid1())
         headers = {'Content-Type': "application/json",'Authorization':session,"x-requestid":requestid}

@@ -23,7 +23,7 @@ class CustomerUpdateType(unittest.TestCase):
         readdb = ReadDB.Pyodbc()
 
         correlationid = readconfig.get_customer(customertab)
-        url = readconfig.get_url('crmurl')+api.format(correlationid)
+        url = readconfig.get_basedata('crm_url')+api.format(correlationid)
         session =  readconfig.get_basedata('session')
         requestid = str(uuid.uuid1())
         headers = {'Content-Type': "application/json",'Authorization':session,"x-requestid":requestid}

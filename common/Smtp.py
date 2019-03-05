@@ -13,10 +13,10 @@ readconfig=ReadConfig.ReadConfig()
 class Smtp:
     def __init__(self,):
         self.msg = email.mime.multipart.MIMEMultipart()
-        self.msg['from'] = readconfig.get_email('sendAddr')
-        self.msg['to'] = readconfig.get_email('recipientAddrs')
-        self.msg['subject'] = readconfig.get_email('subject')
-        content = readconfig.get_email('content')
+        self.msg['from'] = readconfig.get_basedata('email_sendaddr')
+        self.msg['to'] = readconfig.get_basedata('email_recipientaddrs')
+        self.msg['subject'] = readconfig.get_basedata('email_subject')
+        content = readconfig.get_basedata('email_content')
         txt = email.mime.text.MIMEText(content, 'plain', 'utf-8')
         self.msg.attach(txt)
         
@@ -27,8 +27,8 @@ class Smtp:
         self.msg.attach(part)
 
     def send_email(self,):
-        smtpHost = readconfig.get_email('smtpHost')
-        password = readconfig.get_email('password')
+        smtpHost = readconfig.get_basedata('email_smtphost')
+        password = readconfig.get_basedata('email_password')
         print(smtpHost)
         smtp = smtplib.SMTP()
         smtp.connect(smtpHost, '25')

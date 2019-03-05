@@ -23,7 +23,7 @@ class ProjectAll(unittest.TestCase):
         readdb = ReadDB.Pyodbc()
 
         customerid = readconfig.get_customer(peojecttype)
-        url = readconfig.get_url('crmurl')+api.format(customerid) 
+        url = readconfig.get_basedata('crm_url')+api.format(customerid) 
 
         session =  readconfig.get_basedata('session')
         requestid = str(uuid.uuid1())

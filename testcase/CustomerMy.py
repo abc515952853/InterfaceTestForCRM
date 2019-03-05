@@ -13,7 +13,7 @@ class CustomerMy(unittest.TestCase):
         readconfig=ReadConfig.ReadConfig()
         readdb = ReadDB.Pyodbc()
 
-        url = readconfig.get_url('crmurl')+api
+        url = readconfig.get_basedata('crm_url')+api
         session =  readconfig.get_basedata('session')
         headers = {'Content-Type': "application/json",'Authorization':session}
         r = requests.get(url=url, headers = headers)

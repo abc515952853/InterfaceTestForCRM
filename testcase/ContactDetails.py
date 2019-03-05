@@ -14,7 +14,7 @@ class ContactDetails(unittest.TestCase):
         readdb = ReadDB.Pyodbc()
 
         contactid = readconfig.get_contact('contact1')
-        url = readconfig.get_url('crmurl')+api.format(contactid)
+        url = readconfig.get_basedata('crm_url')+api.format(contactid)
         session =  readconfig.get_basedata('session')
         headers = {'Content-Type': "application/json",'Authorization':session}
         r = requests.get(url=url, headers = headers)
