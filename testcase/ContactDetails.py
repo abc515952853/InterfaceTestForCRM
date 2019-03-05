@@ -15,7 +15,7 @@ class ContactDetails(unittest.TestCase):
 
         contactid = readconfig.get_contact('contact1')
         url = readconfig.get_url('crmurl')+api.format(contactid)
-        session =  readconfig.get_member('session')
+        session =  readconfig.get_basedata('session')
         headers = {'Content-Type': "application/json",'Authorization':session}
         r = requests.get(url=url, headers = headers)
         

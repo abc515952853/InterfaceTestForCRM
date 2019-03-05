@@ -23,7 +23,7 @@ class CustomerAll(unittest.TestCase):
         readdb = ReadDB.Pyodbc()
 
         url = readconfig.get_url('crmurl')+api.format(key,departmentId)
-        session =  readconfig.get_member('session')
+        session =  readconfig.get_basedata('session')
         headers = {'Content-Type': "application/json",'Authorization':session}
         r = requests.get(url=url, headers = headers)
         #处理请求数据到excl用例文件

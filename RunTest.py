@@ -7,11 +7,10 @@ from common import Smtp,HTMLTestReportCN
 
 readconfig = ReadConfig.ReadConfig()
 
-
 class Runtest:
     def __init__(self):
         self.caseListFile = os.path.join(ReadConfig.proDir, "caselist.txt")
-        self.caseFile = os.path.join(ReadConfig.proDir, "testCase")
+        self.caseFile = os.path.join(ReadConfig.proDir, "testcase")
         self.caseList = []
 
     def set_case_list(self):

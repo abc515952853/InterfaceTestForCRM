@@ -10,9 +10,10 @@ class ReadConfig:
     def __init__(self):
         fd = open(configPath)
         data = fd.read()
-
+        
         #  remove BOM
         if data[:3] == codecs.BOM_UTF8:
+            print('111')
             data = data[3:]
             file = codecs.open(configPath, "w")
             file.write(data)
@@ -20,7 +21,7 @@ class ReadConfig:
         fd.close()
 
         self.cf = configparser.ConfigParser()
-        self.cf.read(configPath)
+        self.cf.read(configPath,encoding='utf-8')
 
     #获取URL信息
     def get_url(self, name):
@@ -41,14 +42,14 @@ class ReadConfig:
     def set_xls(self,name,value):
         self.cf.set("MEMTESTCASEBER",name,value)
     
-    #获取MEMBER信息
-    def get_member(self,name):
-        value = self.cf.get("MEMBER",name)
+    #获取BASEDATA信息
+    def get_basedata(self,name):
+        value = self.cf.get("BASEDATA",name)
         return value
     
-    #重设MEMBER信息
-    def set_member(self,name,value):
-        self.cf.set("MEMBER",name,value)
+    #重设BASEDATA信息
+    def set_basedata(self,name,value):
+        self.cf.set("BASEDATA",name,value)
         self.save()
 
     #获取Customer信息

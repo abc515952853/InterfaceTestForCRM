@@ -32,7 +32,7 @@ class TestCustomerCreate(unittest.TestCase):
         
         #填写求求参数h
         url = readconfig.get_url('crmurl')+api
-        session =  readconfig.get_member('session')
+        session =  readconfig.get_basedata('session')
         requestid = str(uuid.uuid1())
         headers = {'Content-Type': "application/json",'Authorization':session,"x-requestid":requestid}
 
@@ -42,10 +42,10 @@ class TestCustomerCreate(unittest.TestCase):
             synopsis = synopsis+str(data["case_id"])
 
         if departtype == 1:
-            departid = readconfig.get_member('investmentdepartmentId')
+            departid = readconfig.get_basedata('investmentdepartmentId')
             idtype = 'investmentcustomerid'
         elif departtype ==2:
-            departid = readconfig.get_member('factoringdepartmentid')
+            departid = readconfig.get_basedata('factoringdepartmentid')
             idtype = idtype = 'actoringdecustomerid'
         payload ={
             "name": name,

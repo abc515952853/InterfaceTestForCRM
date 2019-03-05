@@ -14,11 +14,11 @@ class CustomerSubordinate(unittest.TestCase):
         readdb = ReadDB.Pyodbc()
 
         url = readconfig.get_url('crmurl')+api
-        session =  readconfig.get_member('session')
+        session =  readconfig.get_basedata('session')
         headers = {'Content-Type': "application/json",'Authorization':session}
         r = requests.get(url=url, headers = headers)
         if r.status_code==200:
-            customersubordinateid = readdb.GetCustomerSubordinateinfo(readconfig.get_member('employeeid'))
+            customersubordinateid = readdb.GetCustomerSubordinateinfo(readconfig.get_basedata('employeeid'))
             responecustomersubordinateid = []
             for i in range(len(r.json()['list'])):
                 responecustomersubordinateid.append(r.json()['list'][i]['id'])

@@ -15,7 +15,7 @@ class CustomerProperty(unittest.TestCase):
     #     readdb = ReadDB.Pyodbc()
 
     #     url = readconfig.get_url('crmurl')+api1
-    #     session =  readconfig.get_member('session')
+    #     session =  readconfig.get_basedata('session')
     #     headers = {'Content-Type': "application/json",'Authorization':session}
     #     r = requests.get(url=url, headers = headers)
     #     print(r.json())
@@ -44,7 +44,7 @@ class CustomerProperty(unittest.TestCase):
         readdb = ReadDB.Pyodbc()
 
         url = readconfig.get_url('crmurl')+api2
-        session =  readconfig.get_member('session')
+        session =  readconfig.get_basedata('session')
         headers = {'Content-Type': "application/json",'Authorization':session}
         r = requests.get(url=url, headers = headers)
         if r.status_code==200:
@@ -65,7 +65,7 @@ class CustomerProperty(unittest.TestCase):
                                     self.assertEqual(r.json()['customerLabel'][i]['labels'][iii]['name'],r.json()['customerLabel'][i]['labels'][iii]['name'],case_describe)
                                     self.assertEqual(len(r.json()['customerLabel'][i]['labels']),len(customerpropertylabel[ii]['labels']),case_describe)
 
-            myDepartments =  readdb.GetMyDepartments(readconfig.get_member('employeeid'))
+            myDepartments =  readdb.GetMyDepartments(readconfig.get_basedata('employeeid'))
             for a in range(len(r.json()['myDepartments'])):
                 for aa in range(len(myDepartments)):
                     if r.json()['myDepartments'][a]['id'] == myDepartments[aa]['id']:

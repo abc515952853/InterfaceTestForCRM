@@ -31,7 +31,7 @@ class TestScheduleAdd(unittest.TestCase):
         customerid = readconfig.get_customer(customertype)
 
         url = readconfig.get_url('crmurl')+api
-        session =  readconfig.get_member('session')
+        session =  readconfig.get_basedata('session')
         requestid = str(uuid.uuid1())
         headers = {'Content-Type': "application/json",'Authorization':session,"x-requestid":requestid}
         payload ={

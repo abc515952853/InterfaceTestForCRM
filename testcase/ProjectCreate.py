@@ -28,7 +28,7 @@ class ProjectCreate(unittest.TestCase):
             conditions = str(data["conditions"])
             commitment = str(data["commitment"])
             newSituation = str(data["newSituation"])
-            departmentId = readconfig.get_member('investmentdepartmentId')
+            departmentId = readconfig.get_basedata('investmentdepartmentId')
             payload ={
                 "projectName": projectName,
                 "customerId": readconfig.get_customer("investmentcustomerid"),
@@ -53,7 +53,7 @@ class ProjectCreate(unittest.TestCase):
             interestRate1= str(data["interestRate1"])
             interestRate2= str(data["interestRate2"])
             interestRate3= str(data["interestRate3"])
-            departmentId = readconfig.get_member('factoringdepartmentId')
+            departmentId = readconfig.get_basedata('factoringdepartmentId')
             payload ={
                 "projectName": projectName,
                 "customerId": readconfig.get_customer("actoringdecustomerid"),
@@ -77,7 +77,7 @@ class ProjectCreate(unittest.TestCase):
 
         #填写求求参数h
         url = readconfig.get_url('crmurl')+api
-        session =  readconfig.get_member('session')
+        session =  readconfig.get_basedata('session')
         requestid = str(uuid.uuid1())
         headers = {'Content-Type': "application/json",'Authorization':session,"x-requestid":requestid}
         r = requests.post(url=url,data = json.dumps(payload),headers = headers)

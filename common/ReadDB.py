@@ -40,8 +40,8 @@ class Pyodbc:
     def GetCustomerMyinfo(self,employeeid):
         time.sleep(1)
         employeeid = "'"+employeeid+"'"
-        sql = "SELECT  distinct CustomerId FROM [syzb_test_crm].[dbo].[CustomerInDepartment] where DepartmentId in \
-        (SELECT DepartmentId FROM [syzb_test_crm].[dbo].[EmployeeInDepartment] where EmployeeId={0})".format(employeeid)
+        sql = "SELECT  distinct CustomerId FROM [dbo].[CustomerInDepartment] where DepartmentId in \
+        (SELECT DepartmentId FROM [dbo].[EmployeeInDepartment] where EmployeeId={0})".format(employeeid)
         self.cursor.execute(sql)
         customerallinfo= self.cursor.fetchall()
         customerallid = []
@@ -54,12 +54,12 @@ class Pyodbc:
         time.sleep(1)
         employeeid = "'"+employeeid+"'"
         sql = " WITH cte AS(SELECT i=1, a.* FROM [dbo].[Department] a\
-		WHERE a.id in(SELECT DepartmentId FROM [syzb_test_crm].[dbo].[EmployeeInDepartment] WHERE EmployeeId={0} and IsLeader=1)\
+		WHERE a.id in(SELECT DepartmentId FROM [dbo].[EmployeeInDepartment] WHERE EmployeeId={0} and IsLeader=1)\
 		UNION ALL\
 		SELECT i=c.i+1,d.* FROM cte c \
 		INNER JOIN [dbo].[Department] d ON c.id = d.ParentId) \
         SELECT distinct CustomerId FROM [dbo].[CustomerInDepartment] a\
-        inner join [syzb_test_crm].[dbo].[Customer] b on a.CustomerId =b.CorrelationId  where DepartmentId in (SELECT id FROM cte UNION  SELECT DepartmentId FROM [syzb_test_crm].[dbo].[EmployeeInDepartment] where EmployeeId={0})".format(employeeid)
+        inner join [dbo].[Customer] b on a.CustomerId =b.CorrelationId  where DepartmentId in (SELECT id FROM cte UNION  SELECT DepartmentId FROM [dbo].[EmployeeInDepartment] where EmployeeId={0})".format(employeeid)
         self.cursor.execute(sql)
         customerallinfo= self.cursor.fetchall()
         customerallid = []
@@ -71,7 +71,7 @@ class Pyodbc:
         time.sleep(1)
         correlationid = "'"+correlationid+"'"
         sql = "SELECT [CorrelationId],[Name],[ShortName],[City],[State],[CustomerProspectId],[CustomerTypeId],[CreatorId],[Synopsis],[CustomerKind],[assisterId] \
-        FROM [syzb_test_crm].[dbo].[Customer] WHERE [CorrelationId]={0}".format(correlationid)
+        FROM [dbo].[Customer] WHERE [CorrelationId]={0}".format(correlationid)
         self.cursor.execute(sql)
         customerone= self.cursor.fetchone()
         customeroneinfo ={
@@ -134,7 +134,7 @@ class Pyodbc:
     def GetCustomerLabelsinfo(self,correlationid):
         time.sleep(1)
         correlationid = "'"+correlationid+"'"
-        sql = "SELECT LabelId FROM [syzb_test_crm].[dbo].[CustomerLabel] where CustomerId={0}".format(correlationid)
+        sql = "SELECT LabelId FROM [dbo].[CustomerLabel] where CustomerId={0}".format(correlationid)
         self.cursor.execute(sql)
         labelsinfo= self.cursor.fetchall()
         Labelsid = []
@@ -164,12 +164,12 @@ class Pyodbc:
     def GetContactDetailsinfo(self,contactid):
         time.sleep(1)
         contactid = "'"+contactid+"'"
-        sql = "SELECT CorrelationId,Name,Phone,Email,Wechat,Birthday,Street,city,state,Companyname,Job FROM [syzb_test_crm].[dbo].[Contact] WHERE CorrelationId = {0}".format(contactid)
+        sql = "SELECT CorrelationId,Name,Phone,Email,Wechat,Birthday,Street,city,state,Companyname,Job FROM [dbo].[Contact] WHERE CorrelationId = {0}".format(contactid)
         self.cursor.execute(sql)
         contactinfo= self.cursor.fetchone()
         contact = {"correlationid":contactinfo[0],"name":contactinfo[1],"phone":contactinfo[2],"email":contactinfo[3],"wechat":contactinfo[4],"birthday":contactinfo[5],\
         "street":contactinfo[6],"city":contactinfo[7],"state":contactinfo[8],"companyname":contactinfo[9],"job":contactinfo[10]}
-        sql = "SELECT [LabelId] FROM [syzb_test_crm].[dbo].[ContactLabel] where ContactId={0}".format(contactid)
+        sql = "SELECT [LabelId] FROM [dbo].[ContactLabel] where ContactId={0}".format(contactid)
         self.cursor.execute(sql)
         labelinfo= self.cursor.fetchall()
         labels = []
@@ -234,13 +234,41 @@ class Pyodbc:
 
     def GetProjectInCustomerinfo(self,projectid):
         projectid = "'"+projectid+"'"
-        sql = "SELECT id FROM [syzb_test_crm].[dbo].[Project] where CustomerId={}".format(projectid)
+        sql = "SELECT id FROM [dbo].[Project] where CustomerId={}".format(projectid)
         self.cursor.execute(sql)
         ProjectInCustomerinfo= self.cursor.fetchall()
         ProjectInCustomerid = []
         for i in range(len(ProjectInCustomerinfo)):
             ProjectInCustomerid.append(ProjectInCustomerinfo[i][0])
         return ProjectInCustomerid
+
+    def GetEmployinfo(self,employid):
+        employid = "'"+employid+"'"
+        employinfo = {}
+        sql = "SELECT workPlace,avatar,jobNumber,position,mobile,Name,isSenior FROM [dbo].[Employee] where id ={}".format(employid)
+        self.cursor.execute(sql)
+        employbaseinfo= self.cursor.fetchone()
+        employinfo = {
+            "workPlace":employbaseinfo[0],
+            "avatar":employbaseinfo[1],
+            "jobNumber":employbaseinfo[2],
+            "position":employbaseinfo[3],
+            "mobile":employbaseinfo[4],
+            "name":employbaseinfo[5],
+            "isSenior":employbaseinfo[6],
+            "departments":[]
+        }
+        employdepart = {}
+        sql = "SELECT  a.DepartmentId,b.Name,a.IsLeader FROM [dbo].[EmployeeInDepartment] a inner join [dbo].[Department] b on a.DepartmentId = b.id where EmployeeId ={}".format(employid)
+        self.cursor.execute(sql)
+        employdepartinfo= self.cursor.fetchall()
+        for i in range(len(employdepartinfo)):
+            employdepart = {
+                "departmentId":employdepartinfo[i][0],
+                "name":employdepartinfo[i][1],
+                "isLeader":employdepartinfo[i][2],}
+            employinfo["departments"].append(employdepart)
+        return employinfo
 
 
 
