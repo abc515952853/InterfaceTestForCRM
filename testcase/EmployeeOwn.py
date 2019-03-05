@@ -14,11 +14,11 @@ class EmployeeOwn(unittest.TestCase):
         readdb = ReadDB.Pyodbc()
 
         url = readconfig.get_basedata('hr_url')+api
-        session =  readconfig.get_basedata('session')
+        session =  readconfig.get_basedata('member_session')
         headers = {'Content-Type': "application/json",'Authorization':session}
         r = requests.get(url=url, headers = headers)
         if r.status_code==200:
-            employeeinfo = readdb.GetEmployinfo(readconfig.get_basedata('employeeid'))
+            employeeinfo = readdb.GetEmployinfo(readconfig.get_basedata('employee_id'))
             self.assertEqual(r.json()['isSenior'],employeeinfo['isSenior'],case_describe)
             self.assertEqual(r.json()['workPlace'],employeeinfo['workPlace'],case_describe)
             self.assertEqual(r.json()['avatar'],employeeinfo['avatar'],case_describe)
@@ -34,7 +34,7 @@ class EmployeeOwn(unittest.TestCase):
                             self.assertEqual(r.json()['departments'][i]['isLeader'],employeeinfo['departments'][ii]['isLeader'])
                             self.assertEqual(r.json()['departments'][i]['name'],employeeinfo['departments'][ii]['name'])
                             departmentids.append(str(r.json()['departments'][i]['departmentId']))
-                readconfig.set_basedata('departmentid',','.join(departmentids))
+                readconfig.set_dynamicdata('member_departmentid',','.join(departmentids))
             else:
                 self.assertEqual(len(r.json()['departments']),len(employeeinfo['departments']),case_describe)
         else:

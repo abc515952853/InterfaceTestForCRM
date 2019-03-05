@@ -22,14 +22,24 @@ class ReadConfig:
         self.cf = configparser.ConfigParser()
         self.cf.read(configPath,encoding='utf-8')
 
-    #获取BASEDATA信息
+    #获取基础信息
     def get_basedata(self,name):
         value = self.cf.get("BASEDATA",name)
         return value
     
-    #重设BASEDATA信息
+    #重设基础信息
     def set_basedata(self,name,value):
         self.cf.set("BASEDATA",name,value)
+        self.save()
+
+    #获取动态信息
+    def get_dynamicdata(self,name):
+        value = self.cf.get("DYNAMICDATA",name)
+        return value
+
+    #重设动态信息
+    def set_dynamicdata(self,name,value):
+        self.cf.set("DYNAMICDATA",name,value)
         self.save()
 
     #写入ini文件
