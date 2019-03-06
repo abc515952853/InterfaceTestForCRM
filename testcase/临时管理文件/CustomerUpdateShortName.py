@@ -40,6 +40,6 @@ class CustomerUpdateShortName(unittest.TestCase):
         #数据对比
         if r.status_code==200:
             customerdetails = readdb.GetCustomerDetailsinfo(correlationid)
-            self.assertEqual(customerdetails['shortName'],shortName,case_describe)
+            self.assertEqual(customerdetails['shortName'],shortName,case_describe + ",接口：{0}".format(api))
         else:
-            self.assertEqual(r.status_code,200,case_describe)   
+            self.assertEqual(r.status_code,200,case_describe + ",接口：{0}".format(api))   

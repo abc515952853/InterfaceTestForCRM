@@ -36,8 +36,8 @@ class CustomerAll(unittest.TestCase):
             responecustomerindepartmentid = []
             for i in range(len(r.json()['list'])):
                 responecustomerindepartmentid.append(r.json()['list'][i]['id'])
-                self.assertIn(r.json()['list'][i]['id'].upper(),customerindepartmentid,case_describe)
-            self.assertEqual(len(responecustomerindepartmentid),len(customerindepartmentid),case_describe)
-            self.assertEqual(r.json()['count'],len(customerindepartmentid),case_describe)
+                self.assertIn(r.json()['list'][i]['id'].upper(),customerindepartmentid,case_describe + ",接口：{0}".format(api))
+            self.assertEqual(len(responecustomerindepartmentid),len(customerindepartmentid),case_describe + ",接口：{0}".format(api))
+            self.assertEqual(r.json()['count'],len(customerindepartmentid),case_describe + ",接口：{0}".format(api))
         else:
-            self.assertEqual(r.status_code,200,case_describe)   
+            self.assertEqual(r.status_code,200,case_describe + ",接口：{0}".format(api))   

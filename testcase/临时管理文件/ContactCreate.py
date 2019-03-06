@@ -45,11 +45,11 @@ class TestContactCreate(unittest.TestCase):
         
         if r.status_code == expected_code:
             contactinfo = readdb.GetContactDetailsinfo(r.json()['id'])
-            self.assertEqual(contactinfo['name'],name+str(data["case_id"]),case_describe)
-            self.assertEqual(contactinfo['phone'],phone,case_describe)
+            self.assertEqual(contactinfo['name'],name+str(data["case_id"]),case_describe + ",接口：{0}".format(api))
+            self.assertEqual(contactinfo['phone'],phone,case_describe + ",接口：{0}".format(api))
             for i in range(len(labels)):
-                self.assertIn(labels[i],contactinfo['labels'],case_describe)
-            self.assertEqual(len(labels),len(contactinfo['labels']),case_describe)
+                self.assertIn(labels[i],contactinfo['labels'],case_describe + ",接口：{0}".format(api))
+            self.assertEqual(len(labels),len(contactinfo['labels']),case_describe + ",接口：{0}".format(api))
             readconfig.set_contact("Contact"+str(data["case_id"]),r.json()['id'])
-        self.assertEqual(r.status_code,expected_code,case_describe)   
+        self.assertEqual(r.status_code,expected_code,case_describe + ",接口：{0}".format(api))   
 

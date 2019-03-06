@@ -41,7 +41,7 @@ class CustomerUpdateLabel(unittest.TestCase):
         if r.status_code==200:
             customerlabelsid = readdb.GetCustomerLabelsinfo(correlationid)
             for i in range(len(customerlabelsid)):
-                self.assertIn(customerlabelsid[i],labels,case_describe)
-            self.assertEqual(len(customerlabelsid),len(labels),case_describe)
+                self.assertIn(customerlabelsid[i],labels,case_describe + ",接口：{0}".format(api))
+            self.assertEqual(len(customerlabelsid),len(labels),case_describe + ",接口：{0}".format(api))
         else:
-            self.assertEqual(r.status_code,200,case_describe)   
+            self.assertEqual(r.status_code,200,case_describe + ",接口：{0}".format(api))   

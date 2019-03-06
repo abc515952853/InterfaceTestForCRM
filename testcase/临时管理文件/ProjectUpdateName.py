@@ -45,6 +45,6 @@ class ProjectUpdateName(unittest.TestCase):
         #数据对比
         if r.status_code==expected_code:
             projectdetails = readdb.GetProjectDetailsinfo(projectid)
-            self.assertEqual(projectdetails['projectname'],projectname,case_describe)
+            self.assertEqual(projectdetails['projectname'],projectname,case_describe + ",接口：{0}".format(api))
         else:
-            self.assertEqual(r.status_code,expected_code,case_describe)   
+            self.assertEqual(r.status_code,expected_code,case_describe + ",接口：{0}".format(api))   

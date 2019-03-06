@@ -46,8 +46,8 @@ class ContactUpdateAddress(unittest.TestCase):
         #数据对比
         if r.status_code == expected_code:
             contactdetails = readdb.GetContactDetailsinfo(contactid)
-            self.assertEqual(contactdetails['street'],street,case_describe)
-            self.assertEqual(contactdetails['city'],city,case_describe)
-            self.assertEqual(contactdetails['state'],state,case_describe)
+            self.assertEqual(contactdetails['street'],street,case_describe + ",接口：{0}".format(api))
+            self.assertEqual(contactdetails['city'],city,case_describe + ",接口：{0}".format(api))
+            self.assertEqual(contactdetails['state'],state,case_describe + ",接口：{0}".format(api))
         else:
-            self.assertEqual(r.status_code,expected_code,case_describe)   
+            self.assertEqual(r.status_code,expected_code,case_describe + ",接口：{0}".format(api))   

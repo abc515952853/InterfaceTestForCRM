@@ -22,8 +22,8 @@ class CustomerSubordinate(unittest.TestCase):
             responecustomersubordinateid = []
             for i in range(len(r.json()['list'])):
                 responecustomersubordinateid.append(r.json()['list'][i]['id'])
-                self.assertIn(r.json()['list'][i]['id'].upper(),customersubordinateid,case_describe)
-            self.assertEqual(len(responecustomersubordinateid),len(customersubordinateid),case_describe)
-            self.assertEqual(r.json()['count'],len(customersubordinateid),case_describe)
+                self.assertIn(r.json()['list'][i]['id'].upper(),customersubordinateid,case_describe + ",接口：{0}".format(api))
+            self.assertEqual(len(responecustomersubordinateid),len(customersubordinateid),case_describe + ",接口：{0}".format(api))
+            self.assertEqual(r.json()['count'],len(customersubordinateid),case_describe + ",接口：{0}".format(api))
         else:
-            self.assertEqual(r.status_code,200,case_describe)   
+            self.assertEqual(r.status_code,200,case_describe + ",接口：{0}".format(api))   

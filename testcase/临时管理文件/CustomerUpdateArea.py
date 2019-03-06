@@ -41,7 +41,7 @@ class CustomerUpdateArea(unittest.TestCase):
         #数据对比
         if r.status_code==200:
             customerdetails = readdb.GetCustomerDetailsinfo(correlationid)
-            self.assertEqual(customerdetails['city'],city,case_describe)
-            self.assertEqual(customerdetails['state'],state,case_describe)
+            self.assertEqual(customerdetails['city'],city,case_describe + ",接口：{0}".format(api))
+            self.assertEqual(customerdetails['state'],state,case_describe + ",接口：{0}".format(api))
         else:
-            self.assertEqual(r.status_code,200,case_describe)   
+            self.assertEqual(r.status_code,200,case_describe + ",接口：{0}".format(api))   

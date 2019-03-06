@@ -34,12 +34,12 @@ class CustomerDetails(unittest.TestCase):
         #数据对比
         if r.status_code==200:
             customerdetails = readdb.GetCustomerDetailsinfo(correlationid)
-            self.assertEqual(customerdetails['name'],r.json()['name'],case_describe)
-            self.assertEqual(customerdetails['shortName'],r.json()['shortName'],case_describe)
-            self.assertEqual(customerdetails['city'],r.json()['city'],case_describe)
-            self.assertEqual(customerdetails['state'],r.json()['state'],case_describe)
-            self.assertEqual(int(customerdetails['customerProspectId']),r.json()['customerProspectId'],case_describe)
-            self.assertEqual(int(customerdetails['customerTypeId']),r.json()['customerTypeId'],case_describe)
-            self.assertEqual(int(customerdetails['customerKind']),r.json()['customerKind'],case_describe)
+            self.assertEqual(customerdetails['name'],r.json()['name'],case_describe + ",接口：{0}".format(api))
+            self.assertEqual(customerdetails['shortName'],r.json()['shortName'],case_describe + ",接口：{0}".format(api))
+            self.assertEqual(customerdetails['city'],r.json()['city'],case_describe + ",接口：{0}".format(api))
+            self.assertEqual(customerdetails['state'],r.json()['state'],case_describe + ",接口：{0}".format(api))
+            self.assertEqual(int(customerdetails['customerProspectId']),r.json()['customerProspectId'],case_describe + ",接口：{0}".format(api))
+            self.assertEqual(int(customerdetails['customerTypeId']),r.json()['customerTypeId'],case_describe + ",接口：{0}".format(api))
+            self.assertEqual(int(customerdetails['customerKind']),r.json()['customerKind'],case_describe + ",接口：{0}".format(api))
         else:
-            self.assertEqual(r.status_code,200,case_describe)   
+            self.assertEqual(r.status_code,200,case_describe + ",接口：{0}".format(api))   

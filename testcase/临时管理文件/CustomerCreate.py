@@ -69,15 +69,15 @@ class TestCustomerCreate(unittest.TestCase):
         if r.status_code==200 or r.status_code ==204:
             customerinfo = readdb.GetCustomer(name)
             customerlabelsid = readdb.GetCustomerLabelsinfo(customerinfo['correlationId'])
-            self.assertEqual(customerinfo['name'],name,case_describe)
-            self.assertEqual(customerinfo['shortName'],shortName,case_describe)
-            self.assertEqual(customerinfo['city'],city,case_describe)
-            self.assertEqual(customerinfo['state'],state,case_describe)
-            self.assertEqual(customerinfo['customerKind'],str(customerKind),case_describe)
+            self.assertEqual(customerinfo['name'],name,case_describe + ",接口：{0}".format(api))
+            self.assertEqual(customerinfo['shortName'],shortName,case_describe + ",接口：{0}".format(api))
+            self.assertEqual(customerinfo['city'],city,case_describe + ",接口：{0}".format(api))
+            self.assertEqual(customerinfo['state'],state,case_describe + ",接口：{0}".format(api))
+            self.assertEqual(customerinfo['customerKind'],str(customerKind),case_describe + ",接口：{0}".format(api))
             for i in range(len(customerlabelsid)):
-                self.assertIn(customerlabelsid[i],labels,case_describe)
-                self.assertEqual(len(customerlabelsid),len(labels),case_describe)
-        self.assertEqual(r.status_code,data['expected_code'],case_describe)
+                self.assertIn(customerlabelsid[i],labels,case_describe + ",接口：{0}".format(api))
+                self.assertEqual(len(customerlabelsid),len(labels),case_describe + ",接口：{0}".format(api))
+        self.assertEqual(r.status_code,data['expected_code'],case_describe + ",接口：{0}".format(api))
         readconfig.set_customer(idtype,customerinfo['correlationId'])
             
 

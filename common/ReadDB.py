@@ -15,6 +15,15 @@ class Pyodbc:
         self.conn = pyodbc.connect(driver=driver, server=DBIp, user=DBUserName, password=DBPassWord, database=DBName)
         self.cursor = self.conn.cursor()
 
+    def DBClose(self):
+        self.conn.close()
+    
+    def DBDelete(self,formname):
+        sql = "delete [dbo].{}".format(formname)
+        self.cursor.execute(sql)
+        self.conn.commit()
+
+
 ########################################获取测试结果########################################
     def GetCustomer(self,name):
         time.sleep(1)
@@ -242,24 +251,24 @@ class Pyodbc:
             ProjectInCustomerid.append(ProjectInCustomerinfo[i][0])
         return ProjectInCustomerid
 
-    def GetEmployinfo(self,employid):
-        employid = "'"+employid+"'"
-        employinfo = {}
-        sql = "SELECT workPlace,avatar,jobNumber,position,mobile,Name,isSenior FROM [dbo].[Employee] where id ={}".format(employid)
+    def GetEmployinfo(self,employeeid):
+        employeeid = "'"+employeeid+"'"
+        employeeinfo = {}
+        sql = "SELECT workPlace,avatar,jobNumber,position,mobile,Name,isSenior FROM [dbo].[Employee] where id ={}".format(employeeid)
         self.cursor.execute(sql)
-        employbaseinfo= self.cursor.fetchone()
-        employinfo = {
-            "workPlace":employbaseinfo[0],
-            "avatar":employbaseinfo[1],
-            "jobNumber":employbaseinfo[2],
-            "position":employbaseinfo[3],
-            "mobile":employbaseinfo[4],
-            "name":employbaseinfo[5],
-            "isSenior":employbaseinfo[6],
+        employeebaseinfo= self.cursor.fetchone()
+        employeeinfo = {
+            "workPlace":employeebaseinfo[0],
+            "avatar":employeebaseinfo[1],
+            "jobNumber":employeebaseinfo[2],
+            "position":employeebaseinfo[3],
+            "mobile":employeebaseinfo[4],
+            "name":employeebaseinfo[5],
+            "isSenior":employeebaseinfo[6],
             "departments":[]
         }
-        employdepart = {}
-        sql = "SELECT  a.DepartmentId,b.Name,a.IsLeader FROM [dbo].[EmployeeInDepartment] a inner join [dbo].[Department] b on a.DepartmentId = b.id where EmployeeId ={}".format(employid)
+        employeedepart = {}
+        sql = "SELECT  a.DepartmentId,b.Name,a.IsLeader FROM [dbo].[EmployeeInDepartment] a inner join [dbo].[Department] b on a.DepartmentId = b.id where EmployeeId ={}".format(employeeid)
         self.cursor.execute(sql)
         employdepartinfo= self.cursor.fetchall()
         for i in range(len(employdepartinfo)):
@@ -267,8 +276,39 @@ class Pyodbc:
                 "departmentId":employdepartinfo[i][0],
                 "name":employdepartinfo[i][1],
                 "isLeader":employdepartinfo[i][2],}
-            employinfo["departments"].append(employdepart)
-        return employinfo
+            employeeinfo["departments"].append(employdepart)
+        return employeeinfo
+
+    def GetAppVersionOpenRecord(self,employeeid):
+        employeeid = "'"+employeeid+"'"
+        sql = "SELECT top 1 EmployeeId,AppVersionId FROM [dbo].[AppVersionOpenRecord] WHERE EmployeeId={} order by CreateTime desc".format(employeeid)
+        self.cursor.execute(sql)
+        appversionopenrecord= self.cursor.fetchone()
+        return appversionopenrecord
+
+
+
+########################################创建测试结果########################################
+
+    def AddVersion(self,agentid,version):
+        time.sleep(1)
+        agentid = "'"+agentid+"'"
+        version = "'"+version+"'"
+        sql ="insert into [dbo].[AppVersion]([AgentId],[Version],[Content],[IsAppShow],[CreateTime])values({0},{1},'功能更新：XXX',0,getdate())".format(agentid,version)
+        self.cursor.execute(sql)
+
+        self.cursor.execute('SELECT @@IDENTITY')
+        lastrowid = self.cursor.fetchone()[0]
+
+        self.conn.commit()
+
+        return lastrowid
+
+    def UpdateVersion(self):
+        sql = " update [dbo].[AppVersion] set IsAppShow=1 where id = (select top 1 id from [dbo].[AppVersion] order by CreateTime desc )"
+        self.cursor.execute(sql)
+        self.conn.commit()
+
 
 
 

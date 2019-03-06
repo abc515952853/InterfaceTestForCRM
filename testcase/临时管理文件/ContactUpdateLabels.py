@@ -41,7 +41,7 @@ class ContactUpdateLabels(unittest.TestCase):
         if r.status_code == expected_code:
             contactdetails = readdb.GetContactDetailsinfo(contactid)
             for i in range(len(contactdetails['labels'])):
-                self.assertIn(contactdetails['labels'][i],labels,case_describe)
-            self.assertEqual(len(contactdetails['labels']),len(labels),case_describe)
+                self.assertIn(contactdetails['labels'][i],labels,case_describe + ",接口：{0}".format(api))
+            self.assertEqual(len(contactdetails['labels']),len(labels),case_describe + ",接口：{0}".format(api))
         else:
-            self.assertEqual(r.status_code,expected_code,case_describe)   
+            self.assertEqual(r.status_code,expected_code,case_describe + ",接口：{0}".format(api))   

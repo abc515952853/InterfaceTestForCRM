@@ -35,7 +35,7 @@ class ProjectAll(unittest.TestCase):
             responeprojectincustomerid = []
             for i in range(len(r.json())):
                 responeprojectincustomerid.append(r.json()[i]['id'])
-                self.assertIn(r.json()[i]['id'].upper(),projectincustomerid,case_describe)
-            self.assertEqual(len(responeprojectincustomerid),len(projectincustomerid),case_describe)
+                self.assertIn(r.json()[i]['id'].upper(),projectincustomerid,case_describe + ",接口：{0}".format(api))
+            self.assertEqual(len(responeprojectincustomerid),len(projectincustomerid),case_describe + ",接口：{0}".format(api))
         else:
-            self.assertEqual(r.status_code,200,case_describe)   
+            self.assertEqual(r.status_code,200,case_describe + ",接口：{0}".format(api))   
