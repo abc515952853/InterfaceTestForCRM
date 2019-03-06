@@ -40,8 +40,11 @@ class AppVersion(unittest.TestCase):
         isread = int(data["isread"])
         status = str(data["status"])
         case_describe = str(data["case_describe"])
+        expected_code = int(data["expected_code"])
 
         lastrowid = 0
+
+        excel = ReadExcl.Xlrd()
 
         session =  self.readconfig.get_basedata('member_session')
         headers = {'Content-Type': "application/json",'Authorization':session}

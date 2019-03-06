@@ -1,5 +1,5 @@
 #EmployeeOwn
-#AppVersion
+AppVersion
 #CustomerProperty
 #CustomerCreate
 #CustomerMy
@@ -14,8 +14,8 @@
 #CustomerUpdateSynopsis
 #CustomerUpdateLabel
 #CustomerDetails
-ContactProperty
-#ContactCreate
+#ContactProperty
+ContactCreate
 #ContactUpdateName
 #ContactUpdateBirthday
 #ContactUpdateEmail
