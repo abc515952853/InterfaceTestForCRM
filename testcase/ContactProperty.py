@@ -5,20 +5,33 @@ import ReadConfig
 import requests
 import json 
 
-contactlabel='api/Label/Contact/all'
+api='api/Label/Contact/all'
 case_describe = '获取联系人标签'
 
-class ContactProperty(unittest.TestCase): 
-    def test_ContactPropertyLabel(self):
-        readconfig=ReadConfig.ReadConfig()
-        readdb = ReadDB.Pyodbc()
+class ContactProperty(unittest.TestCase):
+    @classmethod
+    def setUpClass(self):
+        self.readdb = ReadDB.Pyodbc()
+        self.readconfig=ReadConfig.ReadConfig()
 
-        url = readconfig.get_basedata('crm_url')+contactlabel
-        session =  readconfig.get_basedata('session')
+    @classmethod
+    def tearDownClass(self):
+        self.readdb.DBClose()
+
+    def setUp(self):
+        pass
+
+    def tearDown(self):
+        pass
+
+    def test_ContactPropertyLabel(self):
+        url = self.readconfig.get_basedata('crm_url')+api
+        session =  self.readconfig.get_basedata('member_session')
         headers = {'Content-Type': "application/json",'Authorization':session}
         r = requests.get(url=url, headers = headers)
         if r.status_code==200:
-            contactpropertylabel = readdb.PropertyLabel(readconfig.get_labelmodule('contactmodule'))
+            contactpropertylabel = self.readdb.PropertyLabel(self.readconfig.get_basedata('labelgroup_module_contact'))
+            contactlabels = []
             for i in range(len(r.json())):
                 for ii in range(len(contactpropertylabel)):
                     if r.json()[i]['id'] == contactpropertylabel[ii]['id']:
@@ -32,7 +45,9 @@ class ContactProperty(unittest.TestCase):
                         for iii in range(len(r.json()[i]['labels'])):
                             for iiii in range(len(contactpropertylabel[ii]['labels'])):
                                 if r.json()[i]['labels'][iii]['id'] == contactpropertylabel[ii]['labels'][iiii]['id']:
+                                    contactlabels.append(str(r.json()[i]['labels'][iii]['id']))
                                     self.assertEqual(r.json()[i]['labels'][iii]['name'],r.json()[i]['labels'][iii]['name'],case_describe + ",接口：{0}".format(api))
                                     self.assertEqual(len(r.json()[i]['labels']),len(contactpropertylabel[ii]['labels']),case_describe + ",接口：{0}".format(api))
+            self.readconfig.set_dynamicdata('labelgroup_module_contact_label',','.join(contactlabels))
         else:
             self.assertEqual(r.status_code,200,case_describe + ",接口：{0}".format(api))  

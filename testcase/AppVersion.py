@@ -23,7 +23,6 @@ class AppVersion(unittest.TestCase):
         self.readdb.DBDelete("[AppVersionOpenRecord]")
         self.readdb.DBDelete("[AppVersion]")
 
-
     @classmethod
     def tearDownClass(self):
         self.readdb.DBClose()

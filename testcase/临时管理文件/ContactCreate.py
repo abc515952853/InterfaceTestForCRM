@@ -13,7 +13,21 @@ api='api/Contact'
 excel = ReadExcl.Xlrd()
 
 @ddt.ddt
-class TestContactCreate(unittest.TestCase): 
+class TestContactCreate(unittest.TestCase):
+    @classmethod
+    def setUpClass(self):
+        pass
+
+    @classmethod
+    def tearDownClass(self):
+        pass
+
+    def setUp(self):
+        pass
+
+    def tearDown(self): 
+        pass 
+        
     @ddt.data(*excel.get_xls_next(sheet_name))
     def test_ContactCreate(self, data):
         name = str(data['name'])
