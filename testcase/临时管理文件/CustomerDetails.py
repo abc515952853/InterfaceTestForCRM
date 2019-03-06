@@ -22,7 +22,7 @@ class CustomerDetails(unittest.TestCase):
 
         correlationid = readconfig.get_customer(customertab)
         url = readconfig.get_basedata('crm_url')+api.format(correlationid)
-        session =  readconfig.get_basedata('session')
+        session =  readconfig.get_basedata('member_session')
         headers = {'Content-Type': "application/json",'Authorization':session}
         r = requests.get(url=url, headers = headers)
 

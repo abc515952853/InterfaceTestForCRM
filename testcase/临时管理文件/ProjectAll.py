@@ -25,7 +25,7 @@ class ProjectAll(unittest.TestCase):
         customerid = readconfig.get_customer(peojecttype)
         url = readconfig.get_basedata('crm_url')+api.format(customerid) 
 
-        session =  readconfig.get_basedata('session')
+        session =  readconfig.get_basedata('member_session')
         requestid = str(uuid.uuid1())
         headers = {'Content-Type': "application/json",'Authorization':session,"x-requestid":requestid}
         r = requests.get(url=url, headers = headers)

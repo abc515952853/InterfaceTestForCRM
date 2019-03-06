@@ -32,7 +32,7 @@ class TestCustomerCreate(unittest.TestCase):
         
         #填写求求参数h
         url = readconfig.get_basedata('crm_url')+api
-        session =  readconfig.get_basedata('session')
+        session =  readconfig.get_basedata('member_session')
         requestid = str(uuid.uuid1())
         headers = {'Content-Type': "application/json",'Authorization':session,"x-requestid":requestid}
 

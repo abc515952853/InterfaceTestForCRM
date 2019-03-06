@@ -29,7 +29,7 @@ class ProjectUpdateStatus(unittest.TestCase):
             projectid = readconfig.get_project('projectfactoringid')
 
         url = readconfig.get_basedata('crm_url')+api.format(projectid)
-        session =  readconfig.get_basedata('session')
+        session =  readconfig.get_basedata('member_session')
         requestid = str(uuid.uuid1())
         headers = {'Content-Type': "application/json",'Authorization':session,"x-requestid":requestid}
         payload ={

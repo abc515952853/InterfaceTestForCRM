@@ -1,5 +1,5 @@
-#EmployeeOwn
-AppVersion
+###EmployeeOwn
+###AppVersion
 #CustomerProperty
 #CustomerCreate
 #CustomerMy
@@ -14,9 +14,9 @@ AppVersion
 #CustomerUpdateSynopsis
 #CustomerUpdateLabel
 #CustomerDetails
-#ContactProperty
-ContactCreate
-#ContactUpdateName
+###ContactProperty
+###ContactCreate
+ContactUpdateName
 #ContactUpdateBirthday
 #ContactUpdateEmail
 #ContactUpdateWechat
@@ -24,7 +24,7 @@ ContactCreate
 #ContactUpdateAddress
 #ContactUpdateCompanyName
 #ContactUpdateJob
-#ContactDetails
+###ContactDetails
 #ProjectCreate
 #ProjectUpdateName
 #ProjectUpdateStatus

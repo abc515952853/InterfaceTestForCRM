@@ -15,7 +15,7 @@ class CustomerProperty(unittest.TestCase):
     #     readdb = ReadDB.Pyodbc()
 
     #     url = readconfig.get_basedata('crm_url')+api1
-    #     session =  readconfig.get_basedata('session')
+    #     session =  readconfig.get_basedata('member_session')
     #     headers = {'Content-Type': "application/json",'Authorization':session}
     #     r = requests.get(url=url, headers = headers)
     #     print(r.json())
@@ -44,7 +44,7 @@ class CustomerProperty(unittest.TestCase):
         readdb = ReadDB.Pyodbc()
 
         url = readconfig.get_basedata('crm_url')+api2
-        session =  readconfig.get_basedata('session')
+        session =  readconfig.get_basedata('member_session')
         headers = {'Content-Type': "application/json",'Authorization':session}
         r = requests.get(url=url, headers = headers)
         if r.status_code==200:

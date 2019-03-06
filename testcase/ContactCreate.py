@@ -36,7 +36,6 @@ class TestContactCreate(unittest.TestCase):
     @ddt.data(*excel.get_xls_next(sheet_name))
     def test_ContactCreate(self, data):
         name = str(data['name'])
-        # labels = list(map(int,str(data["labels"]).split(',')))
         labelcount = int(data['labelcount'])
         phone = str(data['phone'])
         expected_code = int(data["expected_code"])
@@ -71,6 +70,8 @@ class TestContactCreate(unittest.TestCase):
             for i in range(len(labels)):
                 self.assertIn(labels[i],contactinfo['labels'],case_describe + ",接口：{0}".format(api))
             self.assertEqual(len(labels),len(contactinfo['labels']),case_describe + ",接口：{0}".format(api))
-            # self.readconfig.set_contact("Contact"+str(data["case_id"]),r.json()['id'])
+
+            self.readconfig.append_dynamicdata("contact_id",str(r.json()['id']))
+
         self.assertEqual(r.status_code,expected_code,case_describe + ",接口：{0}".format(api))   
 

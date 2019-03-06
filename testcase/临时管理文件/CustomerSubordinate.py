@@ -14,7 +14,7 @@ class CustomerSubordinate(unittest.TestCase):
         readdb = ReadDB.Pyodbc()
 
         url = readconfig.get_basedata('crm_url')+api
-        session =  readconfig.get_basedata('session')
+        session =  readconfig.get_basedata('member_session')
         headers = {'Content-Type': "application/json",'Authorization':session}
         r = requests.get(url=url, headers = headers)
         if r.status_code==200:

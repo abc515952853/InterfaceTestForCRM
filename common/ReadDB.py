@@ -176,7 +176,12 @@ class Pyodbc:
         sql = "SELECT CorrelationId,Name,Phone,Email,Wechat,Birthday,Street,city,state,Companyname,Job FROM [dbo].[Contact] WHERE CorrelationId = {0}".format(contactid)
         self.cursor.execute(sql)
         contactinfo= self.cursor.fetchone()
-        contact = {"correlationid":contactinfo[0],"name":contactinfo[1],"phone":contactinfo[2],"email":contactinfo[3],"wechat":contactinfo[4],"birthday":contactinfo[5],\
+        if contactinfo[5] is None:
+            birthday = None
+        else:
+            birthday = contactinfo[5].strftime('%Y-%m-%d %H:%M')
+
+        contact = {"correlationid":contactinfo[0],"name":contactinfo[1],"phone":contactinfo[2],"email":contactinfo[3],"wechat":contactinfo[4],"birthday":birthday,\
         "street":contactinfo[6],"city":contactinfo[7],"state":contactinfo[8],"companyname":contactinfo[9],"job":contactinfo[10]}
         sql = "SELECT [LabelId] FROM [dbo].[ContactLabel] where ContactId={0}".format(contactid)
         self.cursor.execute(sql)

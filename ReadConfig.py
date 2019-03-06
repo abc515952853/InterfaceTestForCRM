@@ -21,6 +21,24 @@ class ReadConfig:
 
         self.cf = configparser.ConfigParser()
         self.cf.read(configPath,encoding='utf-8')
+    
+    #获取ini所有Session
+    def get_sections(self):
+        sections =  self.cf.sections()
+        return sections
+
+    #获取ini所有Session中的options
+    def get_options(self,section):
+        options =  self.cf.options(section)
+        return options
+
+    #追加动态信息
+    def append_dynamicdata(self,name,value):
+        if name in self.get_options("DYNAMICDATA"):
+            contactids = self.get_dynamicdata(name)+','+value
+            self.set_dynamicdata(name,contactids)
+        else:
+            self.set_dynamicdata(name,value)
 
     #获取基础信息
     def get_basedata(self,name):
