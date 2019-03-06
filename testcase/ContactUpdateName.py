@@ -35,8 +35,7 @@ class ContactUpdateName(unittest.TestCase):
         case_describe = str(data["case_describe"])
         expected_code = int(data["expected_code"])
 
-        self.readconfig=ReadConfig.ReadConfig()
-        self.readdb = ReadDB.Pyodbc()
+        excel = ReadExcl.Xlrd()
 
         contactids = list(map(str,str(self.readconfig.get_dynamicdata("contact_id")).split(','))) 
         contactid = random.sample(contactids,1)[0]
@@ -59,5 +58,4 @@ class ContactUpdateName(unittest.TestCase):
         if r.status_code == 200:
             contactdetails = self.readdb.GetContactDetailsinfo(contactid)
             self.assertEqual(contactdetails['name'],name,case_describe + ",接口：{0}".format(api))
-        else:
-            self.assertEqual(r.status_code,expected_code,case_describe + ",接口：{0}".format(api))   
+        self.assertEqual(r.status_code,expected_code,case_describe + ",接口：{0}".format(api))   

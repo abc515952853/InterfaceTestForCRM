@@ -52,8 +52,7 @@ class EmployeeOwn(unittest.TestCase):
                 self.readconfig.set_dynamicdata('member_departmentid',','.join(departmentids))
             else:
                 self.assertEqual(len(r.json()['departments']),len(employeeinfo['departments']),case_describe + ",接口：{0}".format(api))
-        else:
-            self.assertEqual(r.status_code,200,case_describe + ",接口：{0}".format(api))
+        self.assertEqual(r.status_code,200,case_describe + ",接口：{0}".format(api))
             
 
 

@@ -49,5 +49,4 @@ class ContactProperty(unittest.TestCase):
                                     self.assertEqual(r.json()[i]['labels'][iii]['name'],r.json()[i]['labels'][iii]['name'],case_describe + ",接口：{0}".format(api))
                                     self.assertEqual(len(r.json()[i]['labels']),len(contactpropertylabel[ii]['labels']),case_describe + ",接口：{0}".format(api))
             self.readconfig.set_dynamicdata('labelgroup_module_contact_label',','.join(contactlabels))
-        else:
-            self.assertEqual(r.status_code,200,case_describe + ",接口：{0}".format(api))  
+        self.assertEqual(r.status_code,200,case_describe + ",接口：{0}".format(api))  

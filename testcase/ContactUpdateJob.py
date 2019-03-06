@@ -5,6 +5,7 @@ import ReadConfig
 import requests
 import json 
 import uuid
+import random 
 
 api='api/Contact/{0}/Job'
 sheet_name = "ContactUpdateJob"
@@ -12,19 +13,35 @@ sheet_name = "ContactUpdateJob"
 excel = ReadExcl.Xlrd()
 
 @ddt.ddt
-class ContactUpdateJob(unittest.TestCase): 
+class ContactUpdateJob(unittest.TestCase):
+    @classmethod
+    def setUpClass(self):
+        self.readdb = ReadDB.Pyodbc()
+        self.readconfig=ReadConfig.ReadConfig()
+
+    @classmethod
+    def tearDownClass(self):
+        self.readdb.DBClose()
+
+    def setUp(self):
+        pass
+
+    def tearDown(self):
+        pass
+
     @ddt.data(*excel.get_xls_next(sheet_name))
     def test_ContactUpdateJob(self,data):
         job = str(data["job"])
         case_describe = str(data["case_describe"])
         expected_code = int(data["expected_code"])
 
-        readconfig=ReadConfig.ReadConfig()
-        readdb = ReadDB.Pyodbc()
+        excel = ReadExcl.Xlrd()
 
-        contactid = readconfig.get_contact('contact1')
-        url = readconfig.get_basedata('crm_url')+api.format(contactid)
-        session =  readconfig.get_basedata('member_session')
+        contactids = list(map(str,str(self.readconfig.get_dynamicdata("contact_id")).split(','))) 
+        contactid = random.sample(contactids,1)[0]
+
+        url = self.readconfig.get_basedata('crm_url')+api.format(contactid)
+        session =  self.readconfig.get_basedata('member_session')
         requestid = str(uuid.uuid1())
         headers = {'Content-Type': "application/json",'Authorization':session,"x-requestid":requestid}
         payload ={
@@ -38,8 +55,7 @@ class ContactUpdateJob(unittest.TestCase):
         excel.save()
         
         #数据对比
-        if r.status_code == expected_code:
-            contactdetails = readdb.GetContactDetailsinfo(contactid)
+        if r.status_code == 200:
+            contactdetails = self.readdb.GetContactDetailsinfo(contactid)
             self.assertEqual(contactdetails['job'],job,case_describe + ",接口：{0}".format(api))
-        else:
-            self.assertEqual(r.status_code,expected_code,case_describe + ",接口：{0}".format(api))   
+        self.assertEqual(r.status_code,expected_code,case_describe + ",接口：{0}".format(api))   
