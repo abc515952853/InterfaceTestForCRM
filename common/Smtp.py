@@ -38,32 +38,4 @@ class Smtp:
         smtp.quit()
         
         
-     
-# def send_email(smtpHost, sendAddr, password, recipientAddrs, subject='', content=''):
-#     msg = email.mime.multipart.MIMEMultipart()
-#     msg['from'] = sendAddr
-#     msg['to'] = recipientAddrs
-#     msg['subject'] = subject
-#     content = content
-#     txt = email.mime.text.MIMEText(content, 'plain', 'utf-8')
-#     msg.attach(txt)
-
-#     # 添加附件，传送D:/软件/yasuo.rar文件
-#     part = MIMEApplication(open('F:\PythonProject\InterfaceTestForQianketong\TextReport20181114161754.html','rb').read())
-#     part.add_header('Content-Disposition', 'attachment', filename="TextReport20181113181737.html")
-#     msg.attach(part)
-
-#     smtp = smtplib.SMTP()
-#     smtp.connect(smtpHost, '25')
-#     smtp.login(sendAddr, password)
-#     smtp.sendmail(sendAddr, recipientAddrs, str(msg))
-#     print("邮件发送成功！")
-#     smtp.quit()
-
-
-# try:
-#     subject = 'Python 测试邮件'
-#     content = '这是一封来自 Python 编写的测试邮件。'
-#     send_email('smtp.qq.com', '515952853@qq.com', 'lhenyaejzrlzbgcb', '515952853@qq.com', subject, content)
-# except Exception as err:
-#     print(err)  
+      
