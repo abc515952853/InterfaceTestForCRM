@@ -27,7 +27,7 @@ class ContactDetails(unittest.TestCase):
 
     def test_ContactDetails(self):
         contactids = list(map(str,str(self.readconfig.get_dynamicdata("contact_id")).split(','))) 
-        contactid = random.sample(contactids,1)[0] 
+        contactid = int(random.sample(contactids,1)[0]) 
     
         url = self.readconfig.get_basedata('crm_url')+api.format(contactid)
         session =  self.readconfig.get_basedata('member_session')

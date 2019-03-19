@@ -45,7 +45,7 @@ class TestContactCreate(unittest.TestCase):
 
         contactlabels = list(map(int,str(self.readconfig.get_dynamicdata("labelgroup_module_contact_label")).split(','))) 
 
-        labels = random.sample(contactlabels,labelcount) 
+        labels = int(random.sample(contactlabels,labelcount) 
 
         url = self.readconfig.get_basedata('crm_url')+api
         session =  self.readconfig.get_basedata('member_session')
